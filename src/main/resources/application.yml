@@ -1,4 +1,3 @@
-
 server:
   error:
     include-message: always
@@ -6,12 +5,12 @@ server:
     include-stacktrace: never
   port: 8080
   servlet:
-    context-path: /strongprettyhomes/api
+    context-path: /pretty-homes/api
 spring:
   datasource:
-    password: password
-    url: jdbc:postgresql://localhost:5432/strongprettyhomes
-    username: techprodb_user
+    password: 747324h.H.
+    url: jdbc:postgresql://localhost:8081/postgres
+    username: sever
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -19,14 +18,16 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+        #        format_sql: true
         jdbc:
           lob:
             non_contextual_creation: true
-    show-sql: true
-
+#    show-sql: true
+#  servlet:
+#    multipart:
+#      max-request-size: 2MB
+#      max-file-size: 2MB
 backendapi:
   app:
-    jwtSecret: homesServicesSecretKey
+    jwtSecret: carRentalSecretKey
     jwtExpirationMs: 86400000
-
