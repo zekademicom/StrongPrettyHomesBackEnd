@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.security.service;
 
+import com.zekademi.strongprettyhomes.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,9 +1,30 @@
 server:
-  port: 8082
-
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: never
+  port: 8080
+  servlet:
+    context-path: /strongprettyhomes/api
 spring:
   datasource:
-    url: jdbc:postgresql//localhost:5432/homespro_db
-    username:homesuser
-    password:admin
+    password: password
+    url: jdbc:postgresql://localhost:5432/strongprettyhomes
+    username: techprodb_user
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
 
+backendapi:
+  app:
+    jwtSecret: homesServicesSecretKey
+    jwtExpirationMs: 86400000

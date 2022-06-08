@@ -1,7 +1,7 @@
 package com.zekademi.strongprettyhomes.security.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.zekademi.strongprettyhomes.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,20 +11,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDetailsImpl implements UserDetails {
 
-public class UserDetailsImpl {
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public class UserDetailsImpl implements UserDetails {
+    private static final long serialVersionUID = 1L;
 
-        private static final long serialVersionUID = 1L;
+    private Long id;
 
-        private Long id;
-
-        private String email;
+    private String email;
 
         @JsonIgnore
         private String password;
