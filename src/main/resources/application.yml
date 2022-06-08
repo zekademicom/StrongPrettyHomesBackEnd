@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 server:
   error:
     include-message: always
@@ -30,4 +29,4 @@ backendapi:
   app:
     jwtSecret: homesServicesSecretKey
     jwtExpirationMs: 86400000
->>>>>>> main
+
