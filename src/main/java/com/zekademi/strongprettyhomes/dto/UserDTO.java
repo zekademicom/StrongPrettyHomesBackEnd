@@ -72,7 +72,7 @@ public class UserDTO {
         Set<String> roles1 = new HashSet<>();
         Role[] role = roles.toArray(new Role[roles.size()]);
 
-        for (int i = 0; i < roles.size(); i++) {
+        for (int i = 0; i < roles.size(); i++){
             if (role[i].getName().equals(UserRole.ROLE_ADMIN))
                 roles1.add("Administrator");
             else
