@@ -106,6 +106,7 @@ public class User implements Serializable {
         return roles;
     }
 
+    // TODO: 09/06/2022 getRoles duzenlenecek 
     public Set<String> getRoles() {
           Set<String> roles1 = new HashSet<>();
 //        Role[] role = roles.toArray(new Role[roles.size()]);
