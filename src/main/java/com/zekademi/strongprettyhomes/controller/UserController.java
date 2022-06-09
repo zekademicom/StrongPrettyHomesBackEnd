@@ -1,9 +1,12 @@
 package com.zekademi.strongprettyhomes.controller;
 
+import com.zekademi.strongprettyhomes.domain.User;
+import com.zekademi.strongprettyhomes.dto.UserDTO;
+import com.zekademi.strongprettyhomes.projection.ProjectUser;
+import com.zekademi.strongprettyhomes.security.jwt.JwtUtils;
 import com.zekademi.strongprettyhomes.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -119,6 +124,5 @@ public class UserController {
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
 
 }
