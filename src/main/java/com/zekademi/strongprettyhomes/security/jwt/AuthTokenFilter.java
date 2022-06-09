@@ -1,6 +1,7 @@
 package com.zekademi.strongprettyhomes.security.jwt;
 
 import com.zekademi.strongprettyhomes.domain.User;
+import com.zekademi.strongprettyhomes.security.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl.UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private UserRepository userRepository;

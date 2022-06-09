@@ -2,6 +2,7 @@ package com.zekademi.strongprettyhomes.security.config;
 
 import com.zekademi.strongprettyhomes.security.jwt.AuthEntryPointJwt;
 import com.zekademi.strongprettyhomes.security.jwt.AuthTokenFilter;
+import com.zekademi.strongprettyhomes.security.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl.UserDetailsServiceImpl userDetailsService;
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
