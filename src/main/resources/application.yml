@@ -17,6 +17,10 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        search:
+          default:
+            directory_provider: filesystem
+            indexBase: indexpath
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         jdbc:
