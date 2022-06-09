@@ -66,10 +66,11 @@ public class User implements Serializable {
     @Column(nullable = false, length = 15)
     private String zipCode;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id",
-            insertable = false, updatable = false, nullable = false)
-    private Role roles;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     @Column(nullable = false)
     private Boolean builtIn;
@@ -86,7 +87,7 @@ public class User implements Serializable {
     }
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
-                String address, String zipCode, Role role, Boolean builtIn) {
+                String address, String zipCode, Set<Role> role, Boolean builtIn) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -102,20 +103,16 @@ public class User implements Serializable {
         return firstName + " " + lastName;
     }
 
-    public Role getRole() {
-        return roles;
-    }
 
-    public Set<String> getRoles() {
-          Set<String> roles1 = new HashSet<>();
-//        Role[] role = roles.toArray(new Role[roles.size()]);
-//
-//        for (int i = 0; i < roles.size(); i++) {
-            if (roles.getName().equals(UserRole.ROLE_ADMIN))
+    public Set<String> getRole() {
+        Set<String> roles1 = new HashSet<>();
+        Role[] role = roles.toArray(new Role[roles.size()]);
+        for (int i = 0; i < roles.size(); i++){
+            if (role[i].getName().equals(UserRole.ROLE_ADMIN))
                 roles1.add("Administrator");
             else
                 roles1.add("Customer");
-  //    }
+        }
         return roles1;
     }
 }

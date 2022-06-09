@@ -8,6 +8,9 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK" />
+=======
   <component name="PWA">
     <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
@@ -15,4 +18,5 @@
   <component name="ProjectType">
     <option name="id" value="jpab" />
   </component>
+>>>>>>> main
 </project>
