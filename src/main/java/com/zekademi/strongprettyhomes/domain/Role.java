@@ -25,11 +25,6 @@ public class Role {
     @Column(length = 30, nullable = false)
     private UserRole name;
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> main
     @Override
     public String toString() {
         return "{" + name + '}';

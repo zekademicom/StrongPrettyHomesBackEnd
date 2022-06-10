@@ -33,29 +33,27 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final static String USER_NOT_FOUND_MSG = "user with id %d not found";
 
-    public List<ProjectUser> fetchAllUsers(){
+    public List<ProjectUser> fetchAllUsers() {
         return userRepository.findAllBy();
     }
 
     public UserDTO findById(Long id) throws ResourceNotFoundException {
         User user = userRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, id)));
         UserDTO userDTO = new UserDTO();
         userDTO.setRoles(user.getRole());
         return new UserDTO(user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getEmail(),
-                user.getAddress(), user.getZipCode(), userDTO.getRoles(),user.getBuiltIn());
+                user.getAddress(), user.getZipCode(), userDTO.getRoles(), user.getBuiltIn());
     }
 
     public void register(User user) throws BadRequestException {
-
-        if(userRepository.existsByEmail(user.getEmail())){
-
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new ConflictException("Error: Email is already in use!");
-
         }
-
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        user.setBuiltIn(false);
+
         Set<Role> roles = new HashSet<>();
         Role customerRole = roleRepository.findByName(UserRole.ROLE_CUSTOMER)
                 .orElseThrow(() -> new ResourceNotFoundException("Error: Role is not found."));
@@ -65,14 +63,12 @@ public class UserService {
     }
 
 
-
-    public void login(String email, String password) throws AuthException{
-        try{
+    public void login(String email, String password) throws AuthException {
+        try {
             Optional<User> user = userRepository.findByEmail(email);
-            if(!BCrypt.checkpw(password,user.get().getPassword()));
+            if (!BCrypt.checkpw(password, user.get().getPassword()))
             throw new AuthException("invalid credentials");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw new AuthException("invalid credentials");
         }
     }
@@ -80,15 +76,16 @@ public class UserService {
     public void updateUser(Long id, UserDTO userDTO) throws BadRequestException {
         boolean emailExists = userRepository.existsByEmail(userDTO.getEmail());
         Optional<User> userDetails = userRepository.findById(id);
-        if(userDetails.get().getBuiltIn()) {
+        if (userDetails.get().getBuiltIn()) {
             throw new BadRequestException("You dont have permission to update user info!");
         }
-        if(emailExists && !userDTO.getEmail().equals(userDetails.get().getEmail())){
+        if (emailExists && !userDTO.getEmail().equals(userDetails.get().getEmail())) {
             throw new ConflictException("Error: Email is already in use!");
         }
         userRepository.update(id, userDTO.getFirstName(), userDTO.getLastName(), userDTO.getPhoneNumber(),
                 userDTO.getEmail(), userDTO.getAddress(), userDTO.getZipCode());
     }
+
     public void updatePassword(Long id, String newPassword, String oldPassword) throws BadRequestException {
         Optional<User> user = userRepository.findById(id);
         if (user.get().getBuiltIn()) {
@@ -100,25 +97,25 @@ public class UserService {
         user.get().setPassword(hashedPassword);
         userRepository.save(user.get());
     }
+
     public void updateUserAuth(Long id, AdminDTO adminDTO) throws BadRequestException {
 
         boolean emailExist = userRepository.existsByEmail(adminDTO.getEmail());     // database den email kontrolu yapıyoruz.
 
         Optional<User> userDetails = userRepository.findById(id);       // eski bilgilerine ulaştık.
 
-        if (userDetails.get().getBuiltIn()){
+        if (userDetails.get().getBuiltIn()) {
             throw new BadRequestException("You dont have permission to update user info!");
         }
         adminDTO.setBuiltIn(false);
 
-        if (emailExist && !adminDTO.getEmail().equals(userDetails.get().getEmail())){
+        if (emailExist && !adminDTO.getEmail().equals(userDetails.get().getEmail())) {
             throw new ConflictException("Error : Email is already in use!");
         }
 
         if (adminDTO.getPassword() == null) {
             adminDTO.setPassword(userDetails.get().getPassword());
-        }
-        else {
+        } else {
             String encodedPassword = passwordEncoder.encode(adminDTO.getPassword());
             adminDTO.setPassword(encodedPassword);
         }
@@ -127,18 +124,18 @@ public class UserService {
         Set<Role> roles = addRoles(userRoles);
         User user = new User(id, adminDTO.getFirstName(), adminDTO.getLastName(), adminDTO.getPassword(),
                 adminDTO.getPhoneNumber(), adminDTO.getEmail(), adminDTO.getAddress(), adminDTO.getZipCode(),
-                roles,adminDTO.getBuiltIn());
+                roles, adminDTO.getBuiltIn());
         userRepository.save(user);
 
     }
+
     public Set<Role> addRoles(Set<String> userRoles) {
         Set<Role> roles = new HashSet<>();
         if (userRoles == null) {
             Role userRole = roleRepository.findByName(UserRole.ROLE_CUSTOMER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        }
-        else {
+        } else {
             userRoles.forEach(role -> {
                 switch (role) {
                     case "Administrator":
@@ -166,7 +163,6 @@ public class UserService {
 
         userRepository.deleteById(id);
     }
-
 
 
 }
