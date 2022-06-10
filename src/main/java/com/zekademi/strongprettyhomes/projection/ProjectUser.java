@@ -18,7 +18,7 @@ public interface ProjectUser {
 
     String getZipCode();
 
-    Set<String> getRole();
+    Set<String> getRoles();
 
     Boolean getBuiltIn();
 }
