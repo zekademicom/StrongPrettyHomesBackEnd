@@ -73,7 +73,11 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
 
     @Column(nullable = false)
+<<<<<<< HEAD
     private Boolean builtIn = false;
+=======
+    private Boolean builtIn=false;
+>>>>>>> main
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
