@@ -23,10 +23,10 @@ spring:
           lob:
             non_contextual_creation: true
 #    show-sql: true
-#  servlet:
-#    multipart:
-#      max-request-size: 2MB
-#      max-file-size: 2MB
+  servlet:
+    multipart:
+      max-request-size: 2MB
+      max-file-size: 2MB
 backendapi:
   app:
     jwtSecret: carRentalSecretKey
