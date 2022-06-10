@@ -1,6 +1,9 @@
 package com.zekademi.strongprettyhomes.domain;
 
 
+import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
+import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
+import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -17,7 +21,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "propertys")
+@Table(name = "properties")
 public class Property {
 
     @Id
@@ -33,14 +37,16 @@ public class Property {
     @Column(length = 30, nullable = false)
     private String description;
 
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "Please enter the homes description")
     @Column(length = 30, nullable = false)
-    private String category;
+    private PropertyCategory category;
 
+    @Enumerated(EnumType.STRING)
     @Size(max = 30, message = "Size is exceeded")
     @NotNull(message = "Please enter the homes type")
     @Column(length = 30, nullable = false)
-    private String type;
+    private PropertyType type;
 
     @NotNull(message = "Please enter the homes bedrooms")
     @Column(nullable = false)
@@ -84,7 +90,7 @@ public class Property {
 
     @NotNull(message = "Please enter the homes createDate")
     @Column(nullable = false)
-    private Timestamp createDate;
+    private Date createDate;
 
     @NotNull(message = "Please enter the homes likes")
     @Column(nullable = false)
@@ -94,11 +100,16 @@ public class Property {
     @Column(nullable = false)
     private Long visitCount;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "homes_image",
-            joinColumns = @JoinColumn(name = "homes_id"),
-            inverseJoinColumns = @JoinColumn(name = "file:id"))
+    @Enumerated(EnumType.STRING)
+    @Size(max = 30, message = "Size is exceeded")
+    @NotNull(message = "Please enter the homes status")
+    @Column(length = 30, nullable = false)
+    private PropertyStatus status;
+
+    @OneToMany(mappedBy = "property")
     private Set<ImageDB> image;
+
+
 
 
 }
