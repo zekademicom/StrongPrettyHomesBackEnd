@@ -3,9 +3,9 @@ server:
     include-message: always
     include-binding-errors: always
     include-stacktrace: never
-  port: 8080
+  port: 8082
   servlet:
-    context-path: /pretty-homes/api
+    context-path: /strongprettyhomes/api
 spring:
   datasource:
     password: 747324h.H.

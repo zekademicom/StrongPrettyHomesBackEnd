@@ -69,7 +69,7 @@ public class UserService {
     public void login(String email, String password) throws AuthException{
         try{
             Optional<User> user = userRepository.findByEmail(email);
-            if(!BCrypt.checkpw(password,user.get().getPassword()));
+            if(!BCrypt.checkpw(password,user.get().getPassword()))
             throw new AuthException("invalid credentials");
         }
         catch(Exception e){

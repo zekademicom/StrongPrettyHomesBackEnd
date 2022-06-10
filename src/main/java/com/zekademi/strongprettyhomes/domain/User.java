@@ -12,7 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,7 +73,7 @@ public class User implements Serializable {
     private Set<Role> roles;
 
     @Column(nullable = false)
-    private Boolean builtIn;
+    private Boolean builtIn=false;
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {

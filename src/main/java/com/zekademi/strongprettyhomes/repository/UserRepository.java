@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository <User,Long>{
 
     Boolean existsByEmail(String email) throws ResourceNotFoundException;
+
 
 
     Optional<User> findByEmail(String email);
