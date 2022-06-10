@@ -44,7 +44,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 authorities);
-    }git
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

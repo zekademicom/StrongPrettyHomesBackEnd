@@ -3,14 +3,14 @@ server:
     include-message: always
     include-binding-errors: always
     include-stacktrace: never
-  port: 8080
+  port: 8081
   servlet:
     context-path: /strongprettyhomes/api
 spring:
   datasource:
-    password: password
-    url: jdbc:postgresql://localhost:5432/strongprettyhomes
-    username: techprodb_user
+    password: admin
+    url: jdbc:postgresql://localhost:5432/homespro_db
+    username: homespro_db
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
