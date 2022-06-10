@@ -79,8 +79,6 @@ public class UserController {
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
-
-
     @PutMapping("/user")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> updateUser(HttpServletRequest request,
@@ -107,7 +105,7 @@ public class UserController {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-    @PutMapping("/user/{id]/auth")
+    @PutMapping("/user/{id}/auth")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> updateUserAuth(@PathVariable Long id, @Valid @RequestBody AdminDTO adminDTO){
         userService.updateUserAuth(id, adminDTO);

@@ -21,8 +21,12 @@ public interface UserRepository extends JpaRepository <User,Long>{
     Boolean existsByEmail(String email) throws ResourceNotFoundException;
 
 
+<<<<<<< HEAD
 
     Optional<User> findByEmail(String email);
+=======
+    Optional<User> findByEmail(String email) throws ResourceNotFoundException;
+>>>>>>> main
 
     List<ProjectUser> findAllBy();
 

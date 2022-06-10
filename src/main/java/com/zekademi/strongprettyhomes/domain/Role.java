@@ -24,9 +24,12 @@ public class Role {
     @Column(length = 30, nullable = false)
     private UserRole name;
 
+<<<<<<< HEAD
 //    @OneToMany(targetEntity=User.class, mappedBy="Role",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<User> user = new ArrayList<>();
 
+=======
+>>>>>>> main
     @Override
     public String toString() {
         return "{" + name + '}';

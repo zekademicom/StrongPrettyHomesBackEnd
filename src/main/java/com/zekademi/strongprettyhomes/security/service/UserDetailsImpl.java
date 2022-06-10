@@ -30,13 +30,23 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
 
+<<<<<<< HEAD
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
 //        List<GrantedAuthority> authorities =
 //                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName().name()));
+=======
 
+        List<GrantedAuthority> authorities = user.getRole().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
+>>>>>>> main
+
+//       List<GrantedAuthority> authorities = user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+//                .collect(Collectors.toList());
 
         return new UserDetailsImpl(
                 user.getId(),
@@ -80,6 +90,7 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+<<<<<<< HEAD
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o)
@@ -89,4 +100,15 @@ public class UserDetailsImpl implements UserDetails {
 //        UserDetailsImpl user = (UserDetailsImpl) o;
 //        return Objects.equals(id, user.id);
 //    }
+=======
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        UserDetailsImpl user = (UserDetailsImpl) o;
+        return Objects.equals(id, user.id);
+    }*/
+>>>>>>> main
 }

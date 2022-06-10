@@ -8,9 +8,11 @@ server:
     context-path: /strongprettyhomes/api
 spring:
   datasource:
+<<<<<<< HEAD
     password: 747324h.H.
     url: jdbc:postgresql://localhost:8081/postgres
     username: sever
+
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
