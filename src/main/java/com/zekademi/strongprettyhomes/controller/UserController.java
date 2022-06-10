@@ -1,6 +1,7 @@
 package com.zekademi.strongprettyhomes.controller;
 
 import com.zekademi.strongprettyhomes.domain.User;
+import com.zekademi.strongprettyhomes.dto.AdminDTO;
 import com.zekademi.strongprettyhomes.dto.UserDTO;
 import com.zekademi.strongprettyhomes.projection.ProjectUser;
 import com.zekademi.strongprettyhomes.security.jwt.JwtUtils;

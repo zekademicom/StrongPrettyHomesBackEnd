@@ -31,12 +31,12 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
 
-//        List<GrantedAuthority> authorities = user.getRole().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-//                .collect(Collectors.toList());
+       List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
 
-        List<GrantedAuthority> authorities =
-                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName().name()));
+        /*List<GrantedAuthority> authorities =
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName().name()));*/
 
 
         return new UserDetailsImpl(
@@ -81,7 +81,7 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -89,5 +89,5 @@ public class UserDetailsImpl implements UserDetails {
             return false;
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
-    }
+    }*/
 }
