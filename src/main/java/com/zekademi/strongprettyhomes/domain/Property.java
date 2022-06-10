@@ -92,9 +92,6 @@ public class Property {
     @Column(nullable = false)
     private  Integer visitCount;
 
-
-
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "homes_image",
             joinColumns = @JoinColumn(name="homes_id"),
