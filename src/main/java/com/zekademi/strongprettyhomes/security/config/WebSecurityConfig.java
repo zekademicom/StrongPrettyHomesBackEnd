@@ -2,6 +2,7 @@ package com.zekademi.strongprettyhomes.security.config;
 
 import com.zekademi.strongprettyhomes.security.jwt.AuthEntryPointJwt;
 import com.zekademi.strongprettyhomes.security.jwt.AuthTokenFilter;
+import com.zekademi.strongprettyhomes.security.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,8 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .antMatcher("/healthcare-services/api/login")
-                .antMatcher("/healthcare-services/api/register");
+                .antMatcher("/strongprettyhomes/api/login")
+                .antMatcher("/strongprettyhomes/api/register");
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
