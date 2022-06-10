@@ -98,6 +98,7 @@ public class Property {
 
     @NotNull(message = "Please enter the homes visitCount")
     @Column(nullable = false)
+<<<<<<< HEAD
     private Long visitCount;
 
     @Enumerated(EnumType.STRING)
@@ -109,6 +110,15 @@ public class Property {
     @OneToMany(mappedBy = "property")
     private Set<ImageDB> image;
 
+=======
+    private  Integer visitCount;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "homes_image",
+            joinColumns = @JoinColumn(name="homes_id"),
+    inverseJoinColumns = @JoinColumn(name = "file:id"))
+    private Set<ImageDB> image;
+>>>>>>> main
 
 
 
