@@ -96,7 +96,7 @@ public class Property {
     @JoinTable(name = "homes_image",
             joinColumns = @JoinColumn(name="homes_id"),
     inverseJoinColumns = @JoinColumn(name = "file:id"))
-    private Set<FileDB> image;
+    private Set<ImageDB> image;
 
 
 
