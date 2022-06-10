@@ -73,7 +73,7 @@ public class User implements Serializable {
     private Set<Role> roles;
 
     @Column(nullable = false)
-    private Boolean builtIn;
+    private Boolean builtIn=false;
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
