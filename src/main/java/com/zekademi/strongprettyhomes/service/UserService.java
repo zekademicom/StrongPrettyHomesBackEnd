@@ -41,7 +41,7 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, id)));
         UserDTO userDTO = new UserDTO();
-        userDTO.setRoles(user.getRoles());
+        userDTO.setRoles(user.getRole());
         return new UserDTO(user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getEmail(),
                 user.getAddress(), user.getZipCode(), userDTO.getRoles(),user.getBuiltIn());
     }
