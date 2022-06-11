@@ -23,6 +23,10 @@ public class ImageDB {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    private String name;
+
+    private String type;
+
     @JsonIgnore
     @Lob
     private byte[] image;
@@ -33,10 +37,10 @@ public class ImageDB {
     @JoinColumn(name = "property_id", nullable = false)
     private Property property;
 
-
-    public ImageDB(byte[] image, Boolean featured, Property property) {
+    public ImageDB(String name, String type, byte[] image) {
+        this.name = name;
+        this.type = type;
         this.image = image;
-        this.featured = featured;
-        this.property = property;
     }
+
 }

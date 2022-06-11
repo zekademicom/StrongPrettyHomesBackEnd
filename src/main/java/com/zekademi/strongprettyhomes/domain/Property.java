@@ -12,7 +12,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -94,7 +93,7 @@ public class Property {
 
     @NotNull(message = "Please enter the homes likes")
     @Column(nullable = false)
-    private Integer likes;
+    private Long likes;
 
     @NotNull(message = "Please enter the homes visitCount")
     @Column(nullable = false)
@@ -122,7 +121,7 @@ public class Property {
     public Property(String title, String description, PropertyCategory category, PropertyType type,
                     String bedrooms, String bathrooms, String garages, Double area, Double price,
                     String location, String address, String country, String city, String district,
-                    Date createDate, Integer likes, Long visitCount, PropertyStatus status, Set<ImageDB> image,
+                    Date createDate, Long likes, Long visitCount, PropertyStatus status, Set<ImageDB> image,
                     Agent agent, Set<PropertyDetail> propertyDetails) {
         this.title = title;
         this.description = description;

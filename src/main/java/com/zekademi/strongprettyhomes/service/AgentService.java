@@ -63,7 +63,7 @@ public class AgentService {
         return agentRepository.findByIdOrderById(id).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(AGENT_NOT_FOUND_MSG, id)));
     }
-    public static List<AgentDTO> fetchAllAgents(){
+    public List<AgentDTO> fetchAllAgents(){
         return agentRepository.findAllAgent();
     }
 
