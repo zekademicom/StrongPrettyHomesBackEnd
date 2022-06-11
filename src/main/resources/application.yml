@@ -3,15 +3,15 @@ server:
     include-message: always
     include-binding-errors: always
     include-stacktrace: never
-  port: 8082
+  port: 8080
   servlet:
     context-path: /strongprettyhomes/api
 spring:
   datasource:
 
-    password: 747324h.H.
-    url: jdbc:postgresql://localhost:8081/postgres
-    username: sever
+    password: 
+    url: jdbc:postgresql://localhost:5432/strongprettyhomes
+    username: 
 
     driver-class-name: org.postgresql.Driver
   jpa:
