@@ -1,13 +1,10 @@
 package com.zekademi.strongprettyhomes.dto;
 
-import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.ImageDB;
 import com.zekademi.strongprettyhomes.domain.Property;
-import com.zekademi.strongprettyhomes.domain.PropertyDetail;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
