@@ -59,7 +59,7 @@ public class PropertyService {
         propertyRepository.save(property);
     }
 
-<<<<<<< HEAD
+
     // TODO: 09/06/2022   TourRequest olusturulacak
 
 
@@ -80,7 +80,7 @@ public class PropertyService {
 
         propertyRepository.deleteById(id);
    }
-=======
+
     // TODO: 11/06/2022 querylerle olusturuldu. birkac farkli yontem var. deneyip gorecegiz :)
     public List<PropertyDTO> searchList(String title, String type, String status, String bedrooms, String bathrooms,
                                         String country, String city, String district, double price1, double price2) {
@@ -107,6 +107,6 @@ public class PropertyService {
 //        }
         return propertyRepository.findAllProperty();
     }
->>>>>>> main
+
 
 }
