@@ -68,23 +68,24 @@ public class PropertyService {
     }
 
     // TODO: 09/06/2022   TourRequest olusturulacak
-//    public void removeById(Long id) throws ResourceNotFoundException {
-//        Property property = propertyRepository.findById(id).orElseThrow(() ->
-//                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
-//
-//        if (property.getBuiltIn())
-//            throw new BadRequestException("You dont have permission to delete car!");
-//
-//        boolean reservationExist = reservationRepository.existsByCarId(car);
-//
+
+
+     public void removeById(Long id) throws ResourceNotFoundException {
+       // Property property = propertyRepository.findById(id).orElseThrow(() ->
+              // new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+
+      //  if (property.getBuiltIn()) {
+       //     throw new BadRequestException("You dont have permission to delete property!");
+      //  }
+
+
+      // boolean reservationExist = propertyRepository.existsByProperty(property);
+
 //        if (reservationExist){
-//            throw new ResourceNotFoundException("Reservation(s) exist for car!");
-//        }
-//
-//        carRepository.deleteById(id);
-//    }
+//            throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
 
 
-
+        propertyRepository.deleteById(id);
+   }
 
 }
