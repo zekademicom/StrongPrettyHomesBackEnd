@@ -79,8 +79,6 @@ public class UserController {
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
-
-
     @PutMapping("/user")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> updateUser(HttpServletRequest request,
