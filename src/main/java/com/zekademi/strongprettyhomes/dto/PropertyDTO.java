@@ -5,7 +5,6 @@ import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,6 +58,12 @@ public class PropertyDTO {
 
     private PropertyStatus status;
 
+    private Set<String> image;
+
+    private Agent agent;
+
+    private Set<Long> propertyDetails;
+
     public PropertyDTO(Property property) {
         this.id = id;
         this.title = title;
@@ -79,6 +84,9 @@ public class PropertyDTO {
         this.likes = likes;
         this.visitCount = visitCount;
         this.status = status;
+        this.image = getImageId(property.getImage());
+        this.agent = agent;
+        this.propertyDetails = getDetailId(property.getPropertyDetails());
     }
 
     public Set<String> getImageId(Set<ImageDB> images) {
@@ -89,5 +97,15 @@ public class PropertyDTO {
             img.add(imageDBs[i].getId());
         }
         return img;
+    }
+
+    public Set<Long> getDetailId(Set<PropertyDetail> details) {
+        Set<Long> det = new HashSet<>();
+        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
+
+        for (int i = 0; i < details.size(); i++) {
+            det.add(details1[i].getId());
+        }
+        return det;
     }
 }
