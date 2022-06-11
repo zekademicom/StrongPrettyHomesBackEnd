@@ -65,4 +65,14 @@ public class AgentController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @DeleteMapping("admin/{id}/delete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> deleteAgent(@PathVariable Long id){
+       agentService.removeById(id);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+
 }
