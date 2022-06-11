@@ -37,6 +37,8 @@ public class PropertyController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+
+
 //    @GetMapping
 //    @PreAuthorize("hasRole('ADMIN')")
 //    public ResponseEntity<List<PropertyDTO>> searchList(){
