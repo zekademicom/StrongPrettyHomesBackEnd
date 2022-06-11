@@ -1,34 +1,42 @@
-//package com.zekademi.strongprettyhomes.controller;
+package com.zekademi.strongprettyhomes.controller;
+
+ import com.zekademi.strongprettyhomes.domain.Property;
+ import com.zekademi.strongprettyhomes.dto.PropertyDTO;
+ import com.zekademi.strongprettyhomes.service.PropertyService;
+ import lombok.AllArgsConstructor;
+ import org.springframework.http.HttpStatus;
+ import org.springframework.http.ResponseEntity;
+ import org.springframework.security.access.prepost.PreAuthorize;
+ import org.springframework.web.bind.annotation.*;
+
+ import javax.validation.Valid;
+ import javax.ws.rs.Produces;
+ import javax.ws.rs.core.MediaType;
+ import java.util.HashMap;
+ import java.util.List;
+ import java.util.Map;
+
+ @RestController
+ @AllArgsConstructor
+ @Produces(MediaType.APPLICATION_JSON)
+ @RequestMapping("/property")
+ public class PropertyController {
 //
-//import com.zekademi.strongprettyhomes.domain.Property;
-//import com.zekademi.strongprettyhomes.dto.PropertyDTO;
-//import com.zekademi.strongprettyhomes.service.PropertyService;
-//import lombok.AllArgsConstructor;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
-//import org.springframework.web.bind.annotation.*;
-//
-//import javax.validation.Valid;
-//import javax.ws.rs.Produces;
-//import javax.ws.rs.core.MediaType;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//@RestController
-//@AllArgsConstructor
-//@Produces(MediaType.APPLICATION_JSON)
-//@RequestMapping("/property")
-//public class PropertyController {
-//
-//    public PropertyService propertyService;
+      public PropertyService propertyService;
 //
 //    @GetMapping("/visitors/all")
 //    public ResponseEntity<List<PropertyDTO>> getAllCars(){
 //        List<PropertyDTO> properties = propertyService.fetchAllProperties();
 //        return new ResponseEntity<>(properties, HttpStatus.OK);
 //    }
+
+     public ResponseEntity<List<PropertyDTO>> getAllProperties(){
+        List<PropertyDTO> properties= propertyService.fetchAllProperties();
+        return  new ResponseEntity<>(properties,HttpStatus.OK);
+
+
+     }
+ }
 //
 //    @GetMapping("/visitors/{id}")
 //    public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id){
@@ -65,5 +73,6 @@
 //        map.put("success", true);
 //        return new ResponseEntity<>(map, HttpStatus.OK);
 //    }
+
 //
 //}

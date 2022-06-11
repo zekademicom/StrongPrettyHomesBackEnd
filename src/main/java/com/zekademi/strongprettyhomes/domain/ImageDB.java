@@ -36,13 +36,9 @@ public class ImageDB {
     @JoinColumn(name = "property_id", nullable = false)
     private Property property;
 
-
-<<<<<<< HEAD:src/main/java/com/zekademi/strongprettyhomes/domain/ImageDB.java
-=======
-    public ImageDB(String name, String type, byte[] data) {
-        this.name = name;
-        this.type = type;
-        this.data = data;
+    public ImageDB(byte[] image, Boolean featured, Property property) {
+        this.image = image;
+        this.featured = featured;
+        this.property = property;
     }
->>>>>>> main:src/main/java/com/zekademi/strongprettyhomes/domain/FileDB.java
 }
