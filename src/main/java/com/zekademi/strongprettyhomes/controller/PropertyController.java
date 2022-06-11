@@ -2,51 +2,20 @@ package com.zekademi.strongprettyhomes.controller;
 
 
 import com.zekademi.strongprettyhomes.domain.Property;
-
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.service.PropertyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-@RestController
-@AllArgsConstructor
-@Produces(MediaType.APPLICATION_JSON)
-@RequestMapping("/property")
-
- public class PropertyController {
-
-  public PropertyService propertyService;
-//
-//    @GetMapping("/visitors/all")
-//    public ResponseEntity<List<PropertyDTO>> getAllCars(){
-//        List<PropertyDTO> properties = propertyService.fetchAllProperties();
-//        return new ResponseEntity<>(properties, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/visitors/{id}")
-//    public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id){
-//        PropertyDTO properties = propertyService.findById(id);
-//        return new ResponseEntity<>(properties, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/admin/{id}/add")
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @AllArgsConstructor
 @RestController
