@@ -1,6 +1,5 @@
 package com.zekademi.strongprettyhomes.service;
 
-import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.PropertyDetail;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;

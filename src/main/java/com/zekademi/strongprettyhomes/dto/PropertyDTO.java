@@ -1,6 +1,5 @@
 package com.zekademi.strongprettyhomes.dto;
 
-import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.ImageDB;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.PropertyDetail;
@@ -11,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
