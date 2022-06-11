@@ -40,6 +40,10 @@ public class AgentController {
         return new ResponseEntity<>(agent, HttpStatus.OK);
     }
 
-
+    @GetMapping("/all")
+    public ResponseEntity<List<AgentDTO>> getAllAgents(){
+        List<AgentDTO> agents = AgentService.fetchAllAgents();
+        return new ResponseEntity<>(agents, HttpStatus.OK);
+    }
 
 }

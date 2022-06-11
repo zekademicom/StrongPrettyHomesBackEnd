@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
 @Service
 public class AgentService {
 
-    public AgentRepository agentRepository;
-    public AgentImageRepository agentImageRepository;
+    static public AgentRepository agentRepository;
+    static public AgentImageRepository agentImageRepository;
     private final static String IMAGE_NOT_FOUND_MSG = "image with id %s not found";
     private final static String AGENT_NOT_FOUND_MSG = "agent with id %d not found";
 
@@ -36,6 +37,9 @@ public class AgentService {
     public AgentDTO findById(Long id) {
         return agentRepository.findByIdOrderById(id).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(AGENT_NOT_FOUND_MSG, id)));
+    }
+    public static List<AgentDTO> fetchAllAgents(){
+        return agentRepository.findAllAgent();
     }
 
 }
