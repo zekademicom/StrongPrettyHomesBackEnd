@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,9 +15,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+
 @Table(name = "imgs")
 public class ImageDB {
-
 
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -31,6 +32,7 @@ public class ImageDB {
     @ManyToOne
     @JoinColumn(name = "property_id", nullable = false)
     private Property property;
+
 
     public ImageDB(byte[] image, Boolean featured, Property property) {
         this.image = image;
