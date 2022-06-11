@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.dto;
 
+import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.ImageDB;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;

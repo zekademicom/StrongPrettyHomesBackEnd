@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.service;
 
+import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.exception.BadRequestException;

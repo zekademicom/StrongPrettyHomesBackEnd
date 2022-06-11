@@ -34,4 +34,4 @@ public class ImageDB {
         this.featured = featured;
         this.property = property;
 
-}
+}}
