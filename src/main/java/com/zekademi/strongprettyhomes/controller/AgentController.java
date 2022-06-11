@@ -52,23 +52,6 @@ public class AgentController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @PutMapping("/admin/auth")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> updateAgent(@RequestParam("id") Long id,
