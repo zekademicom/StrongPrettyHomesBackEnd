@@ -25,8 +25,6 @@ public class Role {
     @Column(length = 30, nullable = false)
     private UserRole name;
 
-
-
     @Override
     public String toString() {
         return "{" + name + '}';

@@ -45,7 +45,7 @@ public class User implements Serializable {
 
     @Pattern(regexp = "^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$",
             message = "Please enter valid phone number")
-    @Size(min = 14, max= 14, message = "Phone number should be exact 10 characters")
+    @Size(min = 14, max = 14, message = "Phone number should be exact 10 characters")
     @NotNull(message = "Please enter your phone number")
     @Column(nullable = false, length = 14)
     private String phoneNumber;
@@ -70,10 +70,10 @@ public class User implements Serializable {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @Column(nullable = false)
-    private Boolean builtIn=false;
+    private Boolean builtIn;
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
@@ -87,7 +87,7 @@ public class User implements Serializable {
     }
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
-                String address, String zipCode, Set<Role> role, Boolean builtIn) {
+                String address, String zipCode, Set<Role> roles, Boolean builtIn) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -95,7 +95,7 @@ public class User implements Serializable {
         this.email = email;
         this.address = address;
         this.zipCode = zipCode;
-        this.roles = role;
+        this.roles = roles;
         this.builtIn = builtIn;
     }
 
@@ -103,11 +103,15 @@ public class User implements Serializable {
         return firstName + " " + lastName;
     }
 
+    public Set<Role> getRole() {
+        return roles;
+    }
 
-    public Set<String> getRole() {
+    public Set<String> getRoles() {
         Set<String> roles1 = new HashSet<>();
         Role[] role = roles.toArray(new Role[roles.size()]);
-        for (int i = 0; i < roles.size(); i++){
+
+        for (int i = 0; i < roles.size(); i++) {
             if (role[i].getName().equals(UserRole.ROLE_ADMIN))
                 roles1.add("Administrator");
             else
