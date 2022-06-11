@@ -10,19 +10,16 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "images")
 
+@Table(name = "imgs")
 public class ImageDB {
 
     @Id
-    @GeneratedValue(generator= "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
@@ -37,12 +34,9 @@ public class ImageDB {
     private Property property;
 
 
-<<<<<<< HEAD:src/main/java/com/zekademi/strongprettyhomes/domain/ImageDB.java
-=======
-    public ImageDB(String name, String type, byte[] data) {
-        this.name = name;
-        this.type = type;
-        this.data = data;
+    public ImageDB(byte[] image, Boolean featured, Property property) {
+        this.image = image;
+        this.featured = featured;
+        this.property = property;
     }
->>>>>>> main:src/main/java/com/zekademi/strongprettyhomes/domain/FileDB.java
 }

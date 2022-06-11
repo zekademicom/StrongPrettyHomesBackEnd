@@ -1,6 +1,8 @@
 package com.zekademi.strongprettyhomes.service;
 
+import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.Property;
+import com.zekademi.strongprettyhomes.domain.PropertyDetail;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.repository.AgentRepository;
@@ -44,7 +46,7 @@ public class PropertyService {
 //            throw new BadRequestException("You dont have permission to update property!");
 //        property.setBuiltIn(false);
 
-        Set<PropertyDetail> propertyDetails = new HashSet<>();
+        Set<PropertyDetail> propertyDetails = new HashSet<E>();
         propertyDetails.add(propertyDetail);
 
         property.setPropertyDetails(propertyDetails);
