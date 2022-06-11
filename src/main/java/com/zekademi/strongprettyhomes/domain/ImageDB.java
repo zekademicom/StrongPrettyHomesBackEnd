@@ -48,5 +48,9 @@ public class ImageDB {
     @JoinColumn(name = "property_id", nullable = false)
     private Property property;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
 >>>>>>> main
 }

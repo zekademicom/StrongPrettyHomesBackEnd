@@ -109,6 +109,46 @@ public class Property {
     @OneToMany(mappedBy = "property")
     private Set<ImageDB> image;
 
+<<<<<<< HEAD
+    @ManyToOne
+    @JoinColumn(name = "agent_id", nullable = false)
+    private Agent agent;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(joinColumns = @JoinColumn(name = "property_id"),
+            inverseJoinColumns = @JoinColumn(name = "detail_id"))
+    private Set<PropertyDetail> propertyDetails;
 
 
+    public Property(String title, String description, PropertyCategory category, PropertyType type,
+                    String bedrooms, String bathrooms, String garages, Double area, Double price,
+                    String location, String address, String country, String city, String district,
+                    Date createDate, Integer likes, Long visitCount, PropertyStatus status, Set<ImageDB> image,
+                    Agent agent, Set<PropertyDetail> propertyDetails) {
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.type = type;
+        this.bedrooms = bedrooms;
+        this.bathrooms = bathrooms;
+        this.garages = garages;
+        this.area = area;
+        this.price = price;
+        this.location = location;
+        this.address = address;
+        this.country = country;
+        this.city = city;
+        this.district = district;
+        this.createDate = createDate;
+        this.likes = likes;
+        this.visitCount = visitCount;
+        this.status = status;
+        this.image = image;
+        this.agent = agent;
+        this.propertyDetails = propertyDetails;
+    }
+=======
+
+
+>>>>>>> main
 }
