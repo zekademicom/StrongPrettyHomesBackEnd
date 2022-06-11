@@ -55,6 +55,18 @@ import java.util.List;
                 orphanRemoval= true)
         private List<Property> properties = new ArrayList<>();*/
 
+
+
+
+
+        public boolean getBuiltIn() {
+            return false;
+        }
+
+
+
+
+
         @OneToOne(cascade = CascadeType.PERSIST)
         @JoinColumn(name = "agent_id", referencedColumnName = "id")
         private AgentImage agentImage;
