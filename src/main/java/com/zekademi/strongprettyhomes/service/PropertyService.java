@@ -51,7 +51,7 @@ public class PropertyService {
 //            throw new BadRequestException("You dont have permission to update property!");
 //        property.setBuiltIn(false);
 
-        Set<PropertyDetail> propertyDetails = new HashSet<E>();
+        Set<PropertyDetail> propertyDetails = new HashSet<>();
         propertyDetails.add(propertyDetail);
 
         property.setPropertyDetails(propertyDetails);
