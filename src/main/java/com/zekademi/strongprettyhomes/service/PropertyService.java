@@ -59,6 +59,28 @@ public class PropertyService {
         propertyRepository.save(property);
     }
 
+<<<<<<< HEAD
+    // TODO: 09/06/2022   TourRequest olusturulacak
+
+
+     public void removeById(Long id) throws ResourceNotFoundException {
+       // Property property = propertyRepository.findById(id).orElseThrow(() ->
+              // new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+
+      //  if (property.getBuiltIn()) {
+       //     throw new BadRequestException("You dont have permission to delete property!");
+      //  }
+
+
+      // boolean reservationExist = propertyRepository.existsByProperty(property);
+
+//        if (reservationExist){
+//            throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
+
+
+        propertyRepository.deleteById(id);
+   }
+=======
     // TODO: 11/06/2022 querylerle olusturuldu. birkac farkli yontem var. deneyip gorecegiz :)
     public List<PropertyDTO> searchList(String title, String type, String status, String bedrooms, String bathrooms,
                                         String country, String city, String district, double price1, double price2) {
@@ -85,5 +107,6 @@ public class PropertyService {
 //        }
         return propertyRepository.findAllProperty();
     }
+>>>>>>> main
 
 }
