@@ -37,7 +37,14 @@ public class PropertyService {
 
     private final static String PRICE_DOESNT_MATCH = "It doesnt must price 1 %d grater than price 2 %d";
 
+<<<<<<< HEAD
     
+=======
+    public List<PropertyDTO> fetchAllProperties(){
+        return propertyRepository.findAllProperty();
+    }
+
+>>>>>>> main
 
     public void updateProperty(Long id, Property property, Long agentId, Long detailId) throws BadRequestException {
         property.setId(id);
@@ -58,6 +65,28 @@ public class PropertyService {
 
         propertyRepository.save(property);
     }
+
+
+    // TODO: 09/06/2022   TourRequest olusturulacak
+
+
+     public void removeById(Long id) throws ResourceNotFoundException {
+       // Property property = propertyRepository.findById(id).orElseThrow(() ->
+              // new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+
+      //  if (property.getBuiltIn()) {
+       //     throw new BadRequestException("You dont have permission to delete property!");
+      //  }
+
+
+      // boolean reservationExist = propertyRepository.existsByProperty(property);
+
+//        if (reservationExist){
+//            throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
+
+
+        propertyRepository.deleteById(id);
+   }
 
     // TODO: 11/06/2022 querylerle olusturuldu. birkac farkli yontem var. deneyip gorecegiz :)
     public List<PropertyDTO> searchList(String title, String type, String status, String bedrooms, String bathrooms,
@@ -85,5 +114,6 @@ public class PropertyService {
 //        }
         return propertyRepository.findAllProperty();
     }
+
 
 }

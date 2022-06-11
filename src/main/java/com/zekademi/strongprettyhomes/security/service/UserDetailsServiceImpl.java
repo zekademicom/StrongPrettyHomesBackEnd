@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.security.service;
 
+
 import com.zekademi.strongprettyhomes.domain.User;
 import com.zekademi.strongprettyhomes.repository.UserRepository;
 import lombok.AllArgsConstructor;

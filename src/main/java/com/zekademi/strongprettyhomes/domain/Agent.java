@@ -42,9 +42,9 @@ import java.util.List;
         @Column(nullable = false, unique = true, length= 120)
         private String email;
 
-        @JsonIgnore
-        @Lob
-        private byte[] image;
+//        @JsonIgnore
+//        @Lob
+//        private byte[] image;
         /*
         @OneToOne
         private Image imgAgent;
@@ -54,6 +54,18 @@ import java.util.List;
                 mappedBy="agent",
                 orphanRemoval= true)
         private List<Property> properties = new ArrayList<>();*/
+
+
+
+
+
+        public boolean getBuiltIn() {
+            return false;
+        }
+
+
+
+
 
         @OneToOne(cascade = CascadeType.PERSIST)
         @JoinColumn(name = "agent_id", referencedColumnName = "id")
