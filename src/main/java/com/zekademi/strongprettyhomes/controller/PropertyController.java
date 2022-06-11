@@ -1,15 +1,14 @@
 package com.zekademi.strongprettyhomes.controller;
 
-<<<<<<< HEAD
+
 import com.zekademi.strongprettyhomes.domain.Property;
-=======
->>>>>>> main
+
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.service.PropertyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +41,7 @@ import java.util.Map;
 //    }
 //
 //    @PostMapping("/admin/{id}/add")
-=======
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,7 +73,7 @@ public class PropertyController {
 
 
 //    @GetMapping
->>>>>>> main
+
 //    @PreAuthorize("hasRole('ADMIN')")
 //    public ResponseEntity<List<PropertyDTO>> searchList(){
 //
@@ -82,7 +81,7 @@ public class PropertyController {
 //    }
 
 
-<<<<<<< HEAD
+
 
       @DeleteMapping("/admin/{id}/auth")
       @PreAuthorize("hasRole('ADMIN')")
@@ -93,7 +92,7 @@ public class PropertyController {
         return new ResponseEntity<>(map, HttpStatus.OK);
    }
 
-=======
+
     @GetMapping("/visitors/all")
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
         List<PropertyDTO> properties = propertyService.fetchAllProperties();
@@ -102,5 +101,5 @@ public class PropertyController {
 
 
     }
->>>>>>> main
+
 }
