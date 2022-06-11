@@ -30,6 +30,7 @@ package com.zekademi.strongprettyhomes.controller;
 //        return new ResponseEntity<>(properties, HttpStatus.OK);
 //    }
 
+     @GetMapping("/visitors/all")
      public ResponseEntity<List<PropertyDTO>> getAllProperties(){
         List<PropertyDTO> properties= propertyService.fetchAllProperties();
         return  new ResponseEntity<>(properties,HttpStatus.OK);
