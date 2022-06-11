@@ -19,10 +19,19 @@ public class PropertyController {
     public PropertyService propertyService;
 
 
+//    @GetMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<List<PropertyDTO>> searchList(){
+//
+//        return ResponseEntity<List<PropertyDTO>> ();
+//    }
+
+
     @GetMapping("/visitors/all")
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
         List<PropertyDTO> properties = propertyService.fetchAllProperties();
         return new ResponseEntity<List<PropertyDTO>>(properties, HttpStatus.OK);
+
 
 
     }
