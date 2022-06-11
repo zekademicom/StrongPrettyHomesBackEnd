@@ -35,6 +35,7 @@ public class PropertyController {
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
+
     }
 
 
