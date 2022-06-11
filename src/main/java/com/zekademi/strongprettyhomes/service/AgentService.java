@@ -29,7 +29,7 @@ public class AgentService {
     private final AgentRepository agentRepository;
     private final AgentImageRepository agentImageRepository;
     private final static String IMAGE_NOT_FOUND_MSG = "image with id %s not found";
-    private final static String CAR_NOT_FOUND_MSG = "car with id %d not found";
+    private final static String AGENT_NOT_FOUND_MSG = "car with id %d not found";
 
     
     
