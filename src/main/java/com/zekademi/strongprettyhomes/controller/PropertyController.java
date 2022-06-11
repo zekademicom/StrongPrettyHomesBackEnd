@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 @AllArgsConstructor
 @RestController
 @RequestMapping()
@@ -42,7 +46,10 @@ public class PropertyController {
 
 
 //    @GetMapping
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 //    @PreAuthorize("hasRole('ADMIN')")
 //    public ResponseEntity<List<PropertyDTO>> searchList(){
 //
@@ -50,8 +57,11 @@ public class PropertyController {
 //    }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> main
       @DeleteMapping("/admin/{id}/auth")
       @PreAuthorize("hasRole('ADMIN')")
       public ResponseEntity<Map<String, Boolean>> deleteProperty(@PathVariable Long id){
@@ -61,13 +71,14 @@ public class PropertyController {
         return new ResponseEntity<>(map, HttpStatus.OK);
    }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     @GetMapping("/visitors/all")
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
         List<PropertyDTO> properties = propertyService.fetchAllProperties();
         return new ResponseEntity<List<PropertyDTO>>(properties, HttpStatus.OK);
-
-
 
     }
 
