@@ -1,10 +1,12 @@
 package com.zekademi.strongprettyhomes.controller;
 
 import com.zekademi.strongprettyhomes.domain.Agent;
+import com.zekademi.strongprettyhomes.dto.AgentDTO;
 import com.zekademi.strongprettyhomes.service.AgentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,21 +19,31 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
-@RequestMapping()
+@RequestMapping("/agent")
 public class AgentController {
     public AgentService agentService;
 
-    /*@PostMapping("/agent/register")
-    public ResponseEntity<Map<String, Boolean>> registerAgent(@Valid @RequestBody Agent agent){
-        agentService.registerAgent(agent);
+    @PostMapping("/admin/{imageId}/add")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> create(@PathVariable String imageId,
+                                                       @Valid @RequestBody Agent agent) {
+        agentService.createAgent(agent, imageId);
         Map<String, Boolean> map = new HashMap<>();
-        map.put("Agent registered successfully!", true);
-
+        map.put("Agent added successfully!", true);
         return new ResponseEntity<>(map, HttpStatus.CREATED);
+    }
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<AgentDTO> getAgent(@PathVariable Long id) {
+        AgentDTO agent = agentService.findById(id);
 
-    }*/
+        return new ResponseEntity<>(agent, HttpStatus.OK);
+    }
 
-
-
+    @GetMapping("/all")
+    public ResponseEntity<List<AgentDTO>> getAllAgents(){
+        List<AgentDTO> agents = AgentService.fetchAllAgents();
+        return new ResponseEntity<>(agents, HttpStatus.OK);
+    }
 
 }
