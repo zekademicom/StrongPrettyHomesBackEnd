@@ -5,6 +5,7 @@ import com.zekademi.strongprettyhomes.service.AgentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,5 +34,41 @@ public class AgentController {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @PutMapping("/admin/auth")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> updateAgent(@RequestParam("id") Long id,
+                                                            @RequestParam("agentImageId") String agentImageId,
+                                                            @Valid @RequestBody Agent agent) {
+        agentService.updateAgent(id, agentImageId, agent);
+
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
 }
