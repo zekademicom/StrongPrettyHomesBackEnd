@@ -21,7 +21,7 @@ public class PropertyController {
 
     @GetMapping("/visitors/all")
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
-        List<PropertyDTO> properties = propertyService. ();
+        List<PropertyDTO> properties = propertyService.fetchAllProperties();
         return new ResponseEntity<List<PropertyDTO>>(properties, HttpStatus.OK);
 
 

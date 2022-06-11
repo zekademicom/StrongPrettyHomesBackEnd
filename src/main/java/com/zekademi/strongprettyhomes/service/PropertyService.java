@@ -34,6 +34,10 @@ public class PropertyService {
 
     private final static String PRICE_DOESNT_MATCH = "It doesnt must price 1 %d grater than price 2 %d";
 
+    public List<PropertyDTO> fetchAllProperties(){
+        return propertyRepository.findAllProperty();
+    }
+
 
     public void updateProperty(Long id, Property property, Long agentId, Long detailId) throws BadRequestException {
         property.setId(id);
