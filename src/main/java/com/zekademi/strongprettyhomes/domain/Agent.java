@@ -65,7 +65,7 @@ import java.util.List;
             this.phoneNumber = phoneNumber;
             this.email = email;
             //this.properties = properties;
-            this.image = image;
+//            this.image = image;
         }
     }
 
