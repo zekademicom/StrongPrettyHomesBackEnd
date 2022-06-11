@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @Produces(MediaType.APPLICATION_JSON)
-@RequestMapping()
+@RequestMapping(path="/agent")
 public class AgentController {
     public AgentService agentService;
 
