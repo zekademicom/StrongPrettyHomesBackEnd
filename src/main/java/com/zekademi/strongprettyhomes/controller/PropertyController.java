@@ -1,11 +1,15 @@
 package com.zekademi.strongprettyhomes.controller;
 
+<<<<<<< HEAD
 import com.zekademi.strongprettyhomes.domain.Property;
+=======
+>>>>>>> main
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.service.PropertyService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,27 +42,47 @@ import java.util.Map;
 //    }
 //
 //    @PostMapping("/admin/{id}/add")
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@AllArgsConstructor
+@RestController
+@RequestMapping()
+public class PropertyController {
+
+    public PropertyService propertyService;
+
+    @PutMapping("/admin/auth")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> updateProperty(@RequestParam("id") Long id,
+                                                               @Valid @RequestBody Property property,
+                                                               @RequestParam("agentId")  Long agentId,
+                                                               @RequestParam("detailId") Long detailId
+                                                          ) {
+        propertyService.updateProperty(id, property, agentId, detailId);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+
+    }
+
+
+
+
+//    @GetMapping
+>>>>>>> main
 //    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<Map<String, Boolean>> addProperty(@PathVariable String id,
-//                                                       @Valid @RequestBody Property property) {
-//      //  propertyService.add(property, id);
-//        Map<String, Boolean> map = new HashMap<>();
-//        map.put("User registered successfully!", true);
-//        return new ResponseEntity<>(map, HttpStatus.CREATED);
-//    }
+//    public ResponseEntity<List<PropertyDTO>> searchList(){
 //
-//    @PutMapping("/admin/auth")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<Map<String, Boolean>> updateProperty(@RequestParam("id") Long id,
-//                                                          @RequestParam("imageId") String imageId,
-//                                                          @Valid @RequestBody Property property) {
-//      //  propertyService.updateProperty(id, property, imageId);
-//        Map<String, Boolean> map = new HashMap<>();
-//        map.put("success", true);
-//        return new ResponseEntity<>(map, HttpStatus.OK);
+//        return ResponseEntity<List<PropertyDTO>> ();
 //    }
 
 
+<<<<<<< HEAD
 
       @DeleteMapping("/admin/{id}/auth")
       @PreAuthorize("hasRole('ADMIN')")
@@ -69,4 +93,14 @@ import java.util.Map;
         return new ResponseEntity<>(map, HttpStatus.OK);
    }
 
+=======
+    @GetMapping("/visitors/all")
+    public ResponseEntity<List<PropertyDTO>> getAllProperties() {
+        List<PropertyDTO> properties = propertyService.fetchAllProperties();
+        return new ResponseEntity<List<PropertyDTO>>(properties, HttpStatus.OK);
+
+
+
+    }
+>>>>>>> main
 }
