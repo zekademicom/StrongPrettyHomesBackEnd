@@ -26,4 +26,20 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     @Query("SELECT c FROM Property c " +
             "LEFT JOIN fetch c.image img WHERE c.id = ?1")
     Optional<Property> findPropertyById(Long id) throws ResourceNotFoundException;
+
+//    @Query("SELECT p FROM Property p WHERE CONCAT(p.title, ' ', p.type, ' ', p.status," +
+//            " ' ', p.bedrooms, ' ', p.bathrooms, ' ', p.country, ' ', p.city," +
+//            " ' ', p.district, ' ') LIKE %?1%")
+//    List<Property> search(String keyword);
+
+    List<PropertyDTO> findByTitleAndTypeAndStatusAndBedroomsAndBathroomsAndCountryAndCityAndDistrictAAndPriceBetween
+            (String title, String type, String status, String bedrooms, String bathrooms,
+             String country, String city, String district, double price1, double price2);
+
+//    List<Property> findByPriceBetween(double price1, double price2);
+//    List<Property> findByPriceLessThanEqual(double price2);
+//    List<Property> findByPriceGreaterThanEqual(double price1);
+
+
+
 }
