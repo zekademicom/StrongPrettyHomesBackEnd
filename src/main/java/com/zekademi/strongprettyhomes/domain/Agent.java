@@ -42,9 +42,9 @@ import java.util.List;
         @Column(nullable = false, unique = true, length= 120)
         private String email;
 
-        @JsonIgnore
-        @Lob
-        private byte[] image;
+//        @JsonIgnore
+//        @Lob
+//        private byte[] image;
         /*
         @OneToOne
         private Image imgAgent;

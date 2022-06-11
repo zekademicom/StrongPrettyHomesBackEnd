@@ -3,14 +3,16 @@ server:
     include-message: always
     include-binding-errors: always
     include-stacktrace: never
-  port: 8080
+  port: 8082
   servlet:
     context-path: /strongprettyhomes/api
 spring:
   datasource:
-    password: 1869
-    url: jdbc:postgresql://localhost:5432/strongprettyhomes
-    username: postgres
+
+    password: 747324h.H.
+    url: jdbc:postgresql://localhost:8081/postgres
+    username: sever
+
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -18,18 +20,21 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+        #        format_sql: true
         jdbc:
           lob:
             non_contextual_creation: true
-    show-sql: true
 
+#    show-sql: true
   servlet:
     multipart:
-      max-file-size: 2MB
       max-request-size: 2MB
+      max-file-size: 2MB
+
+    show-sql: true
+
 
 backendapi:
   app:
-    jwtSecret: homesServicesSecretKey
+    jwtSecret: carRentalSecretKey
     jwtExpirationMs: 86400000
