@@ -10,7 +10,10 @@ import com.zekademi.strongprettyhomes.repository.ImageRepository;
 import com.zekademi.strongprettyhomes.repository.PropertyDetailRepository;
 import com.zekademi.strongprettyhomes.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +37,7 @@ public class PropertyService {
 
     private final static String PRICE_DOESNT_MATCH = "It doesnt must price 1 %d grater than price 2 %d";
 
+    
 
     public void updateProperty(Long id, Property property, Long agentId, Long detailId) throws BadRequestException {
         property.setId(id);
