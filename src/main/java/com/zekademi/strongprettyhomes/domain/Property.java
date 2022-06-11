@@ -109,7 +109,6 @@ public class Property {
     @OneToMany(mappedBy = "property")
     private Set<ImageDB> image;
 
-<<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "agent_id", nullable = false)
     private Agent agent;
@@ -147,8 +146,5 @@ public class Property {
         this.agent = agent;
         this.propertyDetails = propertyDetails;
     }
-=======
 
-
->>>>>>> main
 }
