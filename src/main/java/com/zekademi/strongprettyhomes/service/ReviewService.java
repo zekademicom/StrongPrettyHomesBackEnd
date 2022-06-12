@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class ReviewService {
      private ReviewRepository reviewRepository;
 
+     private final static String REVIEW_NOT_FOUND_MSG = "Review with id %d not found";
 
 
 
