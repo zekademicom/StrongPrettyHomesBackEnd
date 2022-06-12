@@ -116,6 +116,16 @@ public class Property {
     private Set<PropertyDetail> propertyDetails;
 
 
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Review> reviewsProperty;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> reviewsUser;
+
+
+
+
+
     public Property(String title, String description, PropertyCategory category, PropertyType type,
                     String bedrooms, String bathrooms, String garages, Double area, Double price,
                     String location, String address, String country, String city, String district,
