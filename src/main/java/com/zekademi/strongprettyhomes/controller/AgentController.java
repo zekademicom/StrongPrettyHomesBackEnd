@@ -32,6 +32,7 @@ public class AgentController {
         map.put("Agent added successfully!", true);
         return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AgentDTO> getAgent(@PathVariable Long id) {
@@ -41,16 +42,10 @@ public class AgentController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<AgentDTO>> getAllAgents(){
+    public ResponseEntity<List<AgentDTO>> getAllAgents() {
         List<AgentDTO> agents = agentService.fetchAllAgents();
         return new ResponseEntity<>(agents, HttpStatus.OK);
     }
-
-
-
-
-
-
 
     @PutMapping("/admin/auth")
     @PreAuthorize("hasRole('ADMIN')")
@@ -67,12 +62,10 @@ public class AgentController {
 
     @DeleteMapping("admin/{id}/delete")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Boolean>> deleteAgent(@PathVariable Long id){
-       agentService.removeById(id);
+    public ResponseEntity<Map<String, Boolean>> deleteAgent(@PathVariable Long id) {
+        agentService.removeById(id);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
-
 }
