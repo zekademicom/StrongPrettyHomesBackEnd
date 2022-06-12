@@ -16,10 +16,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 
-@Table(name = "imgs")
+@Table(name = "images")
 public class ImageDB {
 
     @Id
+    @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
@@ -27,20 +28,20 @@ public class ImageDB {
 
     private String type;
 
-    @JsonIgnore
     @Lob
     private byte[] image;
 
     private Boolean featured;
 
-    @ManyToOne
-    @JoinColumn(name = "property_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "property_id")
     private Property property;
 
-    public ImageDB(String name, String type, byte[] image) {
+    public ImageDB(String name, String type, byte[] image, Property property) {
         this.name = name;
         this.type = type;
         this.image = image;
+        this.property = property;
     }
 
 }

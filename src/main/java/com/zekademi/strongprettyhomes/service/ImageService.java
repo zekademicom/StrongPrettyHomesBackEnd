@@ -2,6 +2,7 @@ package com.zekademi.strongprettyhomes.service;
 
 import com.zekademi.strongprettyhomes.domain.ImageDB;
 import com.zekademi.strongprettyhomes.domain.Property;
+import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
 import com.zekademi.strongprettyhomes.repository.ImageRepository;
 import com.zekademi.strongprettyhomes.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
@@ -20,11 +21,16 @@ public class ImageService {
     private ImageRepository imageRepository;
     private PropertyRepository propertyRepository;
 
-    public ImageDB store(MultipartFile file) throws IOException {
+    private final static String PROPERTY_NOT_FOUND_MSG = "property with id %d not found";
+
+    public ImageDB store(MultipartFile file, Long id) throws IOException {
+
+        Property property = propertyRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
-        ImageDB imageDB = new ImageDB(fileName, file.getContentType(), file.getBytes());
+        ImageDB imageDB = new ImageDB(fileName, file.getContentType(), file.getBytes(), property);
 
         imageRepository.save(imageDB);
 
