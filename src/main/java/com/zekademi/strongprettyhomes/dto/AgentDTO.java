@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.Property;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,12 +49,12 @@ public class AgentDTO {
 
     private List<Property> properties;
 
-    public AgentDTO(String firstName, String lastName, String phoneNumber, String email, byte[] image, List<Property> properties) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.image = image;
-        this.properties = properties;
+    public AgentDTO(Agent agent) {
+        this.firstName = agent.getFirstName();
+        this.lastName = agent.getLastName();
+        this.phoneNumber = agent.getPhoneNumber();
+        this.email = agent.getEmail();
+        this.image = getImage();
+        this.properties = agent.getProperties();
     }
 }

@@ -96,7 +96,7 @@ public class PropertyDTO {
         this.likes = property.getLikes();
         this.visitCount = property.getVisitCount();
         this.status = property.getStatus();
-        this.image = getImageId(property.getImage());
+//        this.image = getImageId(property.getImage());
         this.agent = property.getAgent();
         this.propertyDetails = getDetailId(property.getPropertyDetails());
     }

@@ -1,6 +1,7 @@
 package com.zekademi.strongprettyhomes.controller;
 
 
+import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.service.PropertyService;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping()
+@RequestMapping("/property")
 public class PropertyController {
 
     public PropertyService propertyService;
@@ -33,13 +34,12 @@ public class PropertyController {
         return new ResponseEntity<List<PropertyDTO>>(properties, HttpStatus.OK);
     }
 
-    @PostMapping("/admin/{id}/add")
+    @PostMapping("/admin/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Boolean>> addProperty(@PathVariable String imageId,
-                                                            @RequestParam("agentId")  Long agentId,
-                                                            @RequestParam("detailId") Long detailId,
+    public ResponseEntity<Map<String, Boolean>> addProperty(@RequestParam(value = "agentId") Agent agentId,
                                                             @Valid @RequestBody Property property) {
-        propertyService.add(property, imageId, agentId, detailId);
+
+        propertyService.add(property, agentId);
         Map<String, Boolean> map = new HashMap<>();
         map.put("Property created successfully!", true);
         return new ResponseEntity<>(map, HttpStatus.CREATED);

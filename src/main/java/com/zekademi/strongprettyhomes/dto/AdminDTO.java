@@ -47,7 +47,7 @@ public class AdminDTO {
     @NotNull(message = "Please enter your zip code")
     private String zipCode;
 
-    private Set<String> roles;
+    private String role;
 
     private Boolean builtIn;
 }

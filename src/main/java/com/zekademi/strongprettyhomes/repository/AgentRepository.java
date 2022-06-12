@@ -24,7 +24,7 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
 
 
     @Transactional
-    //@Query("SELECT new com.zekademi.strongprettyhomes.dto.AgentDTO(agent) FROM Agent agent")
+    @Query("SELECT new com.zekademi.strongprettyhomes.dto.AgentDTO(agent) FROM Agent agent")
     List<AgentDTO> findAllAgent();
 
     @Transactional

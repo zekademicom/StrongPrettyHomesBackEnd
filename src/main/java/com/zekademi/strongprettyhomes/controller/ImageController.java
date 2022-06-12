@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,16 +27,17 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @PostMapping("/upload")
+    @PostMapping("/{id}/upload")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file,
+                                                          @PathVariable Long id) {
         try {
-            ImageDB fileDB = imageService.store(file);
+            ImageDB fileDB = imageService.store(file, id);
             Map<String, String> map = new HashMap<>();
             map.put("imageId", fileDB.getId());
             return ResponseEntity.status(HttpStatus.OK).body(map);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
 
             Map<String, String> map = new HashMap<>();
             map.put("message", "Could not upload the file: " + file.getOriginalFilename() + "!");
