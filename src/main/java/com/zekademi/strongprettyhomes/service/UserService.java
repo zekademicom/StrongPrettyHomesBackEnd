@@ -38,12 +38,8 @@ public class UserService {
     }
 
     public UserDTO findById(Long id) throws ResourceNotFoundException {
-        User user = userRepository.findById(id)
+        return  userRepository.findByIdOrderById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, id)));
-        UserDTO userDTO = new UserDTO();
-        userDTO.setRoles(user.getRole());
-        return new UserDTO(user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getEmail(),
-                user.getAddress(), user.getZipCode(), userDTO.getRoles(), user.getBuiltIn());
     }
 
     public void register(User user) throws BadRequestException {
@@ -54,15 +50,11 @@ public class UserService {
         user.setPassword(encodedPassword);
         user.setBuiltIn(false);
 
-        Set<Role> roles = new HashSet<>();
         Role customerRole = roleRepository.findByName(UserRole.ROLE_CUSTOMER)
                 .orElseThrow(() -> new ResourceNotFoundException("Error: Role is not found."));
-        roles.add(customerRole);
-        user.setRoles(roles);
+        user.setRole(customerRole);
         userRepository.save(user);
     }
-
-
 
     public void login(String email, String password) throws AuthException {
         try {
@@ -123,8 +115,8 @@ public class UserService {
             adminDTO.setPassword(encodedPassword);
         }
 
-        Set<String> userRoles = adminDTO.getRoles();
-        Set<Role> roles = addRoles(userRoles);
+        String userRoles = adminDTO.getRole();
+        Role roles = addRoles(userRoles);
         User user = new User(id, adminDTO.getFirstName(), adminDTO.getLastName(), adminDTO.getPassword(),
                 adminDTO.getPhoneNumber(), adminDTO.getEmail(), adminDTO.getAddress(), adminDTO.getZipCode(),
                 roles, adminDTO.getBuiltIn());
@@ -132,29 +124,22 @@ public class UserService {
 
     }
 
-    public Set<Role> addRoles(Set<String> userRoles) {
-        Set<Role> roles = new HashSet<>();
+    public Role addRoles(String userRoles) {
+
         if (userRoles == null) {
-            Role userRole = roleRepository.findByName(UserRole.ROLE_CUSTOMER)
+            return roleRepository.findByName(UserRole.ROLE_CUSTOMER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
         } else {
-            userRoles.forEach(role -> {
-                switch (role) {
-                    case "Administrator":
-                        Role adminRole = roleRepository.findByName(UserRole.ROLE_ADMIN)
+
+                if ( "Administrator".equals(userRoles)) {
+                    return roleRepository.findByName(UserRole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                } else{
+                       return roleRepository.findByName(UserRole.ROLE_CUSTOMER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(UserRole.ROLE_CUSTOMER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                        break;
                 }
-            });
+
         }
-        return roles;
     }
 
     public void removeById(Long id) throws ResourceNotFoundException {
