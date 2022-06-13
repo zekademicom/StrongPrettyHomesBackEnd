@@ -114,4 +114,9 @@ public class PropertyService {
 //        return propertyRepository.findAllProperty();
 //    }
 
+    public PropertyDTO findById(Long id) throws ResourceNotFoundException {
+        return propertyRepository.findPropertyByIdx(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+    }
+
 }
