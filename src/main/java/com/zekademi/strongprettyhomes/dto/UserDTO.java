@@ -52,33 +52,27 @@ public class UserDTO {
     @NotNull(message = "Please enter your zip code")
     private String zipCode;
 
-    private Set<String> roles;
+    private String role;
 
     private Boolean builtIn;
 
     public UserDTO(String firstName, String lastName, String phoneNumber, String email,
-                   String address, String zipCode, Set<String> roles, Boolean builtIn) {
+                   String address, String zipCode, String role, Boolean builtIn) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
         this.zipCode = zipCode;
-        this.roles = roles;
+        this.role = role;
         this.builtIn = builtIn;
     }
 
-    public void setRoles(Set<Role> roles) {
-        Set<String> roles1 = new HashSet<>();
-        Role[] role = roles.toArray(new Role[roles.size()]);
+    public void setRoles(Role role) {
 
-        for (int i = 0; i < roles.size(); i++){
-            if (role[i].getName().equals(UserRole.ROLE_ADMIN))
-                roles1.add("Administrator");
-            else
-                roles1.add("Customer");
+            if (role.getName().equals(UserRole.ROLE_ADMIN))
+              this.role = "Administrator";
+
+            this.role = "User";
         }
-
-        this.roles = roles1;
-    }
 }

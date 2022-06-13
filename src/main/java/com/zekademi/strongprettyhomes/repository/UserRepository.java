@@ -1,6 +1,7 @@
 package com.zekademi.strongprettyhomes.repository;
 
 import com.zekademi.strongprettyhomes.domain.User;
+import com.zekademi.strongprettyhomes.dto.UserDTO;
 import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
 import com.zekademi.strongprettyhomes.projection.ProjectUser;
@@ -20,13 +21,7 @@ public interface UserRepository extends JpaRepository <User,Long>{
 
     Boolean existsByEmail(String email) throws ResourceNotFoundException;
 
-
-<<<<<<< HEAD
-
-    Optional<User> findByEmail(String email);
-=======
     Optional<User> findByEmail(String email) throws ResourceNotFoundException;
->>>>>>> main
 
     List<ProjectUser> findAllBy();
 
@@ -34,6 +29,8 @@ public interface UserRepository extends JpaRepository <User,Long>{
     @Query("UPDATE User u SET u.firstName=?2,u.lastName=?3,u.phoneNumber=?4,u.email=?5,u.address=?6,u.zipCode=?7 where u.id=?1")
     void update(Long id, String firstName, String lastName, String phoneNumber, String email, String address,
                 String zipCode) throws BadRequestException;
+
+    Optional<UserDTO> findByIdOrderById(Long id) throws ResourceNotFoundException;
 
 
 }

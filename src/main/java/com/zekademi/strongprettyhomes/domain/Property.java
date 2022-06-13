@@ -12,7 +12,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -43,7 +42,6 @@ public class Property {
     private PropertyCategory category;
 
     @Enumerated(EnumType.STRING)
-    @Size(max = 30, message = "Size is exceeded")
     @NotNull(message = "Please enter the homes type")
     @Column(length = 30, nullable = false)
     private PropertyType type;
@@ -94,19 +92,18 @@ public class Property {
 
     @NotNull(message = "Please enter the homes likes")
     @Column(nullable = false)
-    private Integer likes;
+    private Long likes;
 
     @NotNull(message = "Please enter the homes visitCount")
     @Column(nullable = false)
     private Long visitCount;
 
     @Enumerated(EnumType.STRING)
-    @Size(max = 30, message = "Size is exceeded")
     @NotNull(message = "Please enter the homes status")
     @Column(length = 30, nullable = false)
     private PropertyStatus status;
 
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<ImageDB> image;
 
     @ManyToOne
@@ -122,8 +119,7 @@ public class Property {
     public Property(String title, String description, PropertyCategory category, PropertyType type,
                     String bedrooms, String bathrooms, String garages, Double area, Double price,
                     String location, String address, String country, String city, String district,
-                    Date createDate, Integer likes, Long visitCount, PropertyStatus status, Set<ImageDB> image,
-                    Agent agent, Set<PropertyDetail> propertyDetails) {
+                    Date createDate, Long likes, Long visitCount, PropertyStatus status) {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -142,9 +138,9 @@ public class Property {
         this.likes = likes;
         this.visitCount = visitCount;
         this.status = status;
-        this.image = image;
-        this.agent = agent;
-        this.propertyDetails = propertyDetails;
+//        this.image = image;
+     //   this.agent = agent;
+//        this.propertyDetails = propertyDetails;
     }
 
 }

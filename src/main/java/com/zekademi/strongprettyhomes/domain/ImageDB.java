@@ -16,27 +16,32 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 
-@Table(name = "imgs")
+@Table(name = "images")
 public class ImageDB {
 
     @Id
+    @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @JsonIgnore
+    private String name;
+
+    private String type;
+
     @Lob
     private byte[] image;
 
     private Boolean featured;
 
-    @ManyToOne
-    @JoinColumn(name = "property_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "property_id")
     private Property property;
 
-
-    public ImageDB(byte[] image, Boolean featured, Property property) {
+    public ImageDB(String name, String type, byte[] image, Property property) {
+        this.name = name;
+        this.type = type;
         this.image = image;
-        this.featured = featured;
         this.property = property;
     }
+
 }
