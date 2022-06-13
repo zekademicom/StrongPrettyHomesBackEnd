@@ -119,8 +119,11 @@ public class Property {
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Review> reviewsProperty;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<User> reviewsUser;
+
+
+
+
+
 
 
 
