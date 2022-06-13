@@ -59,12 +59,16 @@ public class Agent {
     @JoinColumn(name = "agent_image_id", referencedColumnName = "id")
     private AgentImage agentImage;
 
+
     public Agent(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
+
+
 }
 
 
