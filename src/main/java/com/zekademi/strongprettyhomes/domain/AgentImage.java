@@ -21,8 +21,6 @@ public class AgentImage {
     private String id;
     private String name;
     private String type;
-
-
     @JsonIgnore
     @Lob
     private byte[] data;
