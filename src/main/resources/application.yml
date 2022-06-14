@@ -1,18 +1,16 @@
-<<<<<<< HEAD
-=======
 server:
   error:
     include-message: always
     include-binding-errors: always
     include-stacktrace: never
-  port: 8080
+  port: 8082
   servlet:
     context-path: /strongprettyhomes/api
 spring:
   datasource:
-    password:
-    url: jdbc:postgresql://localhost:5432/strongprettyhomes
-    username: postgres
+    password: admin
+    url: jdbc:postgresql://localhost:5432/homespro_db
+    username: homesuser
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -25,7 +23,7 @@ spring:
           lob:
             non_contextual_creation: true
 
-#    show-sql: true
+  #    show-sql: true
   servlet:
     multipart:
       max-request-size: 2MB
@@ -37,4 +35,3 @@ backendapi:
   app:
     jwtSecret: carRentalSecretKey
     jwtExpirationMs: 86400000
->>>>>>> main

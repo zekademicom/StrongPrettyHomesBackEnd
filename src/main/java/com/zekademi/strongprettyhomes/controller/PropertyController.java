@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package com.zekademi.strongprettyhomes.controller;
 
 
@@ -53,7 +51,7 @@ public class PropertyController {
                                                                @Valid @RequestBody Property property,
                                                                @RequestParam("agentId")  Long agentId,
                                                                @RequestParam("detailId") Long detailId
-                                                          ) {
+    ) {
         propertyService.updateProperty(id, property, agentId, detailId);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
@@ -61,16 +59,15 @@ public class PropertyController {
 
     }
 
-      @DeleteMapping("/admin/{id}/auth")
-      @PreAuthorize("hasRole('ADMIN')")
-      public ResponseEntity<Map<String, Boolean>> deleteProperty(@PathVariable Long id){
+    @DeleteMapping("/admin/{id}/auth")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> deleteProperty(@PathVariable Long id){
         propertyService.removeById(id);
         Map<String, Boolean> map = new HashMap<>();
-       map.put("success", true);
+        map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
-   }
+    }
 
 
 
 }
->>>>>>> main
