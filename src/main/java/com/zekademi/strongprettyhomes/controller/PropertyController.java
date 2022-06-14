@@ -68,6 +68,12 @@ public class PropertyController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @GetMapping("/visitors/{id}")
+    public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id){
+        PropertyDTO properties = propertyService.findById(id);
+        return new ResponseEntity<>(properties, HttpStatus.OK);
+    }
+
 
 
 }

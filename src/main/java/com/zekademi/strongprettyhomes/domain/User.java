@@ -73,6 +73,11 @@ public class User  {
     @Column(nullable = false)
     private Boolean builtIn=false;
 
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<User> reviewsUser;
+
+
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
         this.firstName = firstName;
