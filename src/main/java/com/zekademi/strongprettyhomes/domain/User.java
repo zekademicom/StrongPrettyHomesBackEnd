@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import java.util.HashSet;
+
 import java.util.Set;
 
 @Setter
@@ -75,7 +75,7 @@ public class User  {
 
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<User> reviewsUser;
+    private Set<Review> reviewsUser;
 
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
@@ -99,6 +99,20 @@ public class User  {
         this.address = address;
         this.zipCode = zipCode;
         this.role = roles;
+        this.builtIn = builtIn;
+    }
+
+    public User(Long id, String firstName, String lastName, String password, String phoneNumber,
+                String email, String address, String zipCode, Role role, Boolean builtIn) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.role = role;
         this.builtIn = builtIn;
     }
 
