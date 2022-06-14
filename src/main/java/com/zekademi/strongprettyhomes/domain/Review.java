@@ -26,7 +26,6 @@ public class Review {
     @Column(name="text", columnDefinition="LONGTEXT", length = 2000)
     private String review;
 
-
     @Column
     private Integer score;
 
@@ -34,16 +33,13 @@ public class Review {
     @JoinColumn(name = "property_id", nullable = false)
     private Property property;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
     @Enumerated(EnumType.STRING)
     @Column(length = 30, nullable = false)
     private ReviewStatus status;
-
 
     public Review(String review, Integer score, Property property, User user, ReviewStatus status) {
         this.review = review;
