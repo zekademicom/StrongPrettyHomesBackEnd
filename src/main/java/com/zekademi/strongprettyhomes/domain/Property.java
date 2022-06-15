@@ -23,17 +23,17 @@ import java.util.Set;
 @Table(name = "properties")
 public class Property {
 
-    @Id
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(max = 30, message = "Size is exceeded")
+    @Size(max = 100, message = "Size is exceeded")
     @NotNull(message = "Please enter the homes title")
-    @Column(length = 30, nullable = false)
+    @Column(length = 100, nullable = false)
     private String title;
 
     @NotNull(message = "Please enter the homes description")
-    @Column(length = 30, nullable = false)
+    @Column(length = 200, nullable = true)
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -64,7 +64,7 @@ public class Property {
 
     @NotNull(message = "Please enter the  homes price")
     @Column(nullable = false)
-    private Double price;
+    private Integer price;
 
     @NotNull(message = "Please enter the homes location")
     @Column(nullable = false)
@@ -90,26 +90,30 @@ public class Property {
     @Column(nullable = false)
     private Date createDate;
 
-    @NotNull(message = "Please enter the homes likes")
-    @Column(nullable = false)
-    private Long likes;
-
     @NotNull(message = "Please enter the homes visitCount")
     @Column(nullable = false)
     private Long visitCount;
+
+//    @NotNull(message = "Please enter the homes likes")
+//    @Column(nullable = false)
+//    private Long countLike;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Please enter the homes status")
     @Column(length = 30, nullable = false)
     private PropertyStatus status;
 
+
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<ImageDB> image;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "agent_id", nullable = false)
     private Agent agent;
 
+
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "property_id"),
             inverseJoinColumns = @JoinColumn(name = "detail_id"))
@@ -117,9 +121,9 @@ public class Property {
 
 
     public Property(String title, String description, PropertyCategory category, PropertyType type,
-                    String bedrooms, String bathrooms, String garages, Double area, Double price,
+                    String bedrooms, String bathrooms, String garages, Double area, Integer price,
                     String location, String address, String country, String city, String district,
-                    Date createDate, Long likes, Long visitCount, PropertyStatus status) {
+                    Date createDate, PropertyStatus status) {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -135,12 +139,8 @@ public class Property {
         this.city = city;
         this.district = district;
         this.createDate = createDate;
-        this.likes = likes;
-        this.visitCount = visitCount;
         this.status = status;
-//        this.image = image;
-     //   this.agent = agent;
-//        this.propertyDetails = propertyDetails;
     }
+
 
 }
