@@ -73,24 +73,20 @@ public class PropertyController {
 
     @DeleteMapping("/admin/{id}/auth")
     @PreAuthorize("hasRole('ADMIN')")
-<<<<<<< HEAD
-    public ResponseEntity<Map<String, Boolean>> deleteProperty(@PathVariable Long id){
-=======
+
     public ResponseEntity<Map<String, Boolean>> deleteProperty(@PathVariable Long id) {
->>>>>>> main
+
         propertyService.removeById(id);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
-<<<<<<< HEAD
+
     }
 
     @GetMapping("/visitors/{id}")
     public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id){
         PropertyDTO properties = propertyService.findById(id);
         return new ResponseEntity<>(properties, HttpStatus.OK);
-=======
->>>>>>> main
     }
 
     @GetMapping("/search")
