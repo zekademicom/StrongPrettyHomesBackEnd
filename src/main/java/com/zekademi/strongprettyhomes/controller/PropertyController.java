@@ -7,10 +7,7 @@ import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.repository.PropertyRepository;
 import com.zekademi.strongprettyhomes.service.PropertyService;
 import lombok.AllArgsConstructor;
-import net.kaczmarzyk.spring.data.jpa.domain.EqualIgnoreCase;
-import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
-import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
-import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.domain.*;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Or;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -83,14 +80,14 @@ public class PropertyController {
     @GetMapping("/search")
     public Object searchProperties(
             @Or({
-                    @Spec(path = "title", params = "title", spec = Like.class),
-                    @Spec(path = "type", params = "type", spec = EqualIgnoreCase.class),
-                    @Spec(path = "status", params = "status", spec = EqualIgnoreCase.class),
-                    @Spec(path = "bedrooms", params = "bedrooms", spec = Like.class),
-                    @Spec(path = "bathrooms", params = "bathrooms", spec = Like.class),
-                    @Spec(path = "country", params = "country", spec = Like.class),
-                    @Spec(path = "city", params = "city", spec = Like.class),
-                    @Spec(path = "district", params = "district", spec = Like.class),
+                    @Spec(path = "title", params = "title", spec = LikeIgnoreCase.class),
+                    @Spec(path = "type", params = "type", spec = LikeIgnoreCase.class),
+                    @Spec(path = "status", params = "status", spec = LikeIgnoreCase.class),
+                    @Spec(path = "bedrooms", params = "bedrooms", spec = LikeIgnoreCase.class),
+                    @Spec(path = "bathrooms", params = "bathrooms", spec = LikeIgnoreCase.class),
+                    @Spec(path = "country", params = "country", spec = LikeIgnoreCase.class),
+                    @Spec(path = "city", params = "city", spec = LikeIgnoreCase.class),
+                    @Spec(path = "district", params = "district", spec = LikeIgnoreCase.class),
 
             }) @And({
                     @Spec(path = "price", params = "lowPrice", spec = GreaterThanOrEqual.class),
