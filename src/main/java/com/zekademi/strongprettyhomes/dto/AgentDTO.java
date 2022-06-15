@@ -1,7 +1,6 @@
 package com.zekademi.strongprettyhomes.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zekademi.strongprettyhomes.domain.Agent;
-import com.zekademi.strongprettyhomes.domain.AgentImage;
 import com.zekademi.strongprettyhomes.domain.Property;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,24 +43,18 @@ public class AgentDTO {
     @NotNull(message="Please enter agent's email")
     private String email;
 
-
-    private String image;
+    @JsonIgnore
+    @Lob
+    private byte[] image;
 
     private List<Property> properties;
 
     public AgentDTO(Agent agent) {
-        this.id=agent.getId();
         this.firstName = agent.getFirstName();
         this.lastName = agent.getLastName();
         this.phoneNumber = agent.getPhoneNumber();
         this.email = agent.getEmail();
-        this.image = getImageId(agent.getAgentImage());
+        this.image = getImage();
         this.properties = agent.getProperties();
-    }
-
-    private String getImageId(AgentImage agentImage) {
-        String img = agentImage.getId();
-
-    return img;
     }
 }
