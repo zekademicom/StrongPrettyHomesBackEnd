@@ -1,17 +1,17 @@
 package com.zekademi.strongprettyhomes.dto;
 
+import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.Review;
+import com.zekademi.strongprettyhomes.domain.User;
 import com.zekademi.strongprettyhomes.domain.enumeration.ReviewStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-
 
 @Getter
 @Setter

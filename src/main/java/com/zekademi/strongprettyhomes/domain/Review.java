@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,7 +30,6 @@ public class Review {
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate localDate;
-
 
     @Column
     private Integer score;

@@ -42,7 +42,6 @@ public class AgentController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<AgentDTO>> getAllAgents() {
         List<AgentDTO> agents = agentService.fetchAllAgents();
         return new ResponseEntity<>(agents, HttpStatus.OK);
