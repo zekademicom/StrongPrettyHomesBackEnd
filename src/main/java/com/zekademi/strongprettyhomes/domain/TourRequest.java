@@ -5,22 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@NoArgsConstructor
-@Setter
-@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
+@Table(name = "tour_requests")
 public class TourRequest {
-
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
 }
