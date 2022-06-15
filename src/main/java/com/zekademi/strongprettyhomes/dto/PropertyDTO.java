@@ -52,8 +52,6 @@ public class PropertyDTO {
 
     private Date createdDate;
 
-    private Long likes;
-
     private Long visitCount;
 
     private PropertyStatus status;
@@ -76,6 +74,15 @@ public class PropertyDTO {
         return img;
     }
 
+     public Set<Long> getDetailId(Set<PropertyDetail> details) {
+        Set<Long> det = new HashSet<>();
+        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
+        for (int i = 0; i < details.size(); i++) {
+            det.add(details1[i].getId());
+        }
+        return det;
+    }
+
     public PropertyDTO(Property property) {
         this.id = property.getId();
         this.title = property.getTitle();
@@ -93,21 +100,12 @@ public class PropertyDTO {
         this.city = property.getCity();
         this.district = property.getDistrict();
         this.createdDate = property.getCreateDate();
-        this.likes = property.getLikes();
         this.visitCount = property.getVisitCount();
         this.status = property.getStatus();
-//        this.image = getImageId(property.getImage());
+        this.image = getImageId(property.getImage());
         this.agent = property.getAgent();
         this.propertyDetails = getDetailId(property.getPropertyDetails());
+
     }
 
-    public Set<Long> getDetailId(Set<PropertyDetail> details) {
-        Set<Long> det = new HashSet<>();
-        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
-
-        for (int i = 0; i < details.size(); i++) {
-            det.add(details1[i].getId());
-        }
-        return det;
-    }
 }
