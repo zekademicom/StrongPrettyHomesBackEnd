@@ -16,7 +16,7 @@ public class TourRequestService {
 
     private final TourRequestRepository tourRequestRepository;
 
-    public List<TourRequestDTO> fetchAllReservations() {
+    public List<TourRequestDTO> fetchAllTourRequest() {
         return tourRequestRepository.findAllBy();
     }
 

@@ -26,7 +26,7 @@ public class TourRequestController {
     @GetMapping("/admin/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<TourRequestDTO>> getAllTourRequest() {
-        List<TourRequestDTO> tourrequest = tourrequestService.fetchAllReservations();
+        List<TourRequestDTO> tourrequest = tourrequestService.fetchAllTourRequest();
 
         return new ResponseEntity<>(tourrequest, HttpStatus.OK);
     }
