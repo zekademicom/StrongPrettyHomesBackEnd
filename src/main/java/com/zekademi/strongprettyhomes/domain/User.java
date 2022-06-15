@@ -71,7 +71,7 @@ public class User  {
     private Role role;
 
     @Column(nullable = false)
-    private Boolean builtIn=false;
+    private Boolean builtIn;
 
     public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
