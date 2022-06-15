@@ -1,6 +1,9 @@
 package com.zekademi.strongprettyhomes.dto;
 
-import com.zekademi.strongprettyhomes.domain.*;
+import com.zekademi.strongprettyhomes.domain.Agent;
+import com.zekademi.strongprettyhomes.domain.ImageDB;
+import com.zekademi.strongprettyhomes.domain.Property;
+import com.zekademi.strongprettyhomes.domain.PropertyDetail;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
@@ -35,7 +38,7 @@ public class PropertyDTO {
 
     private Double area;
 
-    private Integer price;
+    private Double price;
 
     private String location;
 
@@ -49,6 +52,8 @@ public class PropertyDTO {
 
     private Date createdDate;
 
+    private Long likes;
+
     private Long visitCount;
 
     private PropertyStatus status;
@@ -59,6 +64,8 @@ public class PropertyDTO {
 
     private Set<Long> propertyDetails;
 
+
+
     public Set<String> getImageId(Set<ImageDB> images) {
         Set<String> img = new HashSet<>();
         ImageDB[] imageDBs = images.toArray(new ImageDB[images.size()]);
@@ -67,15 +74,6 @@ public class PropertyDTO {
             img.add(imageDBs[i].getId());
         }
         return img;
-    }
-
-    public Set<Long> getDetailId(Set<PropertyDetail> details) {
-        Set<Long> det = new HashSet<>();
-        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
-        for (int i = 0; i < details.size(); i++) {
-            det.add(details1[i].getId());
-        }
-        return det;
     }
 
     public PropertyDTO(Property property) {
@@ -95,13 +93,21 @@ public class PropertyDTO {
         this.city = property.getCity();
         this.district = property.getDistrict();
         this.createdDate = property.getCreateDate();
+        this.likes = property.getLikes();
         this.visitCount = property.getVisitCount();
         this.status = property.getStatus();
-        this.image = getImageId(property.getImage());
+//        this.image = getImageId(property.getImage());
         this.agent = property.getAgent();
         this.propertyDetails = getDetailId(property.getPropertyDetails());
-
     }
 
+    public Set<Long> getDetailId(Set<PropertyDetail> details) {
+        Set<Long> det = new HashSet<>();
+        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
 
+        for (int i = 0; i < details.size(); i++) {
+            det.add(details1[i].getId());
+        }
+        return det;
+    }
 }

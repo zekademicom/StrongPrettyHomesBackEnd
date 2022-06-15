@@ -1,7 +1,6 @@
 package com.zekademi.strongprettyhomes.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zekademi.strongprettyhomes.domain.enumeration.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,10 +71,9 @@ public class User  {
     private Role role;
 
     @Column(nullable = false)
-    private Boolean builtIn;
+    private Boolean builtIn=false;
 
-
-    public User( String firstName, String lastName, String password, String phoneNumber, String email,
+    public User(String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
         this.firstName = firstName;
         this.lastName = lastName;
