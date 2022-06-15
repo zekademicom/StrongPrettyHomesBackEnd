@@ -6,6 +6,11 @@ import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.service.PropertyService;
 import lombok.AllArgsConstructor;
+import net.kaczmarzyk.spring.data.jpa.domain.*;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Or;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,8 +71,28 @@ public class PropertyController {
         Map<String, Boolean> map = new HashMap<>();
        map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
-   }
 
+    }
 
+    @GetMapping("/search")
+    public Object searchProperties(
+            @Or({
+                    @Spec(path = "title", params = "title", spec = LikeIgnoreCase.class),
+                    @Spec(path = "type", params = "type", spec = LikeIgnoreCase.class),
+                    @Spec(path = "status", params = "status", spec = LikeIgnoreCase.class),
+                    @Spec(path = "bedrooms", params = "bedrooms", spec = LikeIgnoreCase.class),
+                    @Spec(path = "bathrooms", params = "bathrooms", spec = LikeIgnoreCase.class),
+                    @Spec(path = "country", params = "country", spec = LikeIgnoreCase.class),
+                    @Spec(path = "city", params = "city", spec = LikeIgnoreCase.class),
+                    @Spec(path = "district", params = "district", spec = LikeIgnoreCase.class),
+
+   
+ }) @And({
+                    @Spec(path = "price", params = "lowPrice", spec = GreaterThanOrEqual.class),
+                    @Spec(path = "price", params = "highPrice", spec = LessThanOrEqual.class)
+            }) Specification<Property> customerNameSpec) {
+
+        return propertyRepository.findAll(customerNameSpec);
+    }
 
 }

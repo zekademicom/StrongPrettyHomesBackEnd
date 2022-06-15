@@ -13,7 +13,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class AgentDTO {
     @Id
@@ -50,6 +49,7 @@ public class AgentDTO {
     private List<Property> properties;
 
     public AgentDTO(Agent agent) {
+        this.id = agent.getId();
         this.firstName = agent.getFirstName();
         this.lastName = agent.getLastName();
         this.phoneNumber = agent.getPhoneNumber();
