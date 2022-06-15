@@ -1,6 +1,7 @@
 package com.zekademi.strongprettyhomes.controller;
 
 
+import com.zekademi.strongprettyhomes.dto.TourRequestDTO;
 import com.zekademi.strongprettyhomes.service.TourRequestService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -24,7 +26,7 @@ public class TourRequestController {
     @GetMapping("/admin/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<TourRequestDTO>> getAllTourRequest() {
-        List<TourRequestDTO> tourrequest = tourrequestService.fetchAllTourRequest();
+        List<TourRequestDTO> tourrequest = tourrequestService.fetchAllReservations();
 
         return new ResponseEntity<>(tourrequest, HttpStatus.OK);
     }
