@@ -58,11 +58,9 @@ public class ReviewService {
     }
 
 
-//        public void removeById (Long id) throws ResourceNotFoundException {
-//            reviewRepository.deleteById(id);
-//
-//
-//        }
+       public void removeById (Long id) throws ResourceNotFoundException {
+          reviewRepository.deleteById(id);
+      }
 
 
 }
