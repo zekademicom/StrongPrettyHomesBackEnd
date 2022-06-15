@@ -6,11 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -28,11 +25,6 @@ public class Review {
     @Lob
     @Column(name="text", columnDefinition="LONGTEXT", length = 2000)
     private String review;
-
-
-
-    private ZonedDateTime activation_date = ZonedDateTime.now();
-
 
     @Column
     private Integer score;
