@@ -20,7 +20,7 @@ public class ReviewDTO {
     private Long id;
     @Lob
     private String review;
-    private LocalDate activation_date ;
+    private LocalDate localDate;
     private Integer score;
     private Long propertyId;
     private Long userId;
@@ -31,15 +31,14 @@ public class ReviewDTO {
     public ReviewDTO(Review review) {
         this.id = review.getId();
         this.review = review.getReview();
-        this.activation_date= LocalDate.from(review.getActivation_date());
         this.score = review.getScore();
         this.propertyId = review.getProperty().getId();
         this.userId = review.getUser().getId();
         this.status = review.getStatus();
     }
     public String convertDateToString(Review review){//date string e donusturuldu
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String date=df.format(review.getActivation_date());
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        String date=df.format(review.getLocalDate());
         return date;
 
     }
