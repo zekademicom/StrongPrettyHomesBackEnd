@@ -49,7 +49,7 @@ public class Agent {
     @Column(nullable = false, unique = true, length = 120)
     private String email;
 
-   @OneToMany(fetch = FetchType.LAZY, mappedBy = "agent")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "agent")
     private List<Property> properties = new ArrayList<>();
 
     @OneToOne

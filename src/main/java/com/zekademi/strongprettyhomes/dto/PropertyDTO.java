@@ -1,9 +1,6 @@
 package com.zekademi.strongprettyhomes.dto;
 
-import com.zekademi.strongprettyhomes.domain.Agent;
-import com.zekademi.strongprettyhomes.domain.ImageDB;
-import com.zekademi.strongprettyhomes.domain.Property;
-import com.zekademi.strongprettyhomes.domain.PropertyDetail;
+import com.zekademi.strongprettyhomes.domain.*;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
@@ -38,7 +35,7 @@ public class PropertyDTO {
 
     private Double area;
 
-    private Double price;
+    private Integer price;
 
     private String location;
 
@@ -62,8 +59,6 @@ public class PropertyDTO {
 
     private Set<Long> propertyDetails;
 
-
-
     public Set<String> getImageId(Set<ImageDB> images) {
         Set<String> img = new HashSet<>();
         ImageDB[] imageDBs = images.toArray(new ImageDB[images.size()]);
@@ -74,7 +69,7 @@ public class PropertyDTO {
         return img;
     }
 
-     public Set<Long> getDetailId(Set<PropertyDetail> details) {
+    public Set<Long> getDetailId(Set<PropertyDetail> details) {
         Set<Long> det = new HashSet<>();
         PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
         for (int i = 0; i < details.size(); i++) {
@@ -107,5 +102,6 @@ public class PropertyDTO {
         this.propertyDetails = getDetailId(property.getPropertyDetails());
 
     }
+
 
 }

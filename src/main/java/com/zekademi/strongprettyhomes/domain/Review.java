@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -26,10 +25,6 @@ public class Review {
     @Lob
     @Column(name="text", columnDefinition="LONGTEXT", length = 2000)
     private String review;
-
-
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate localDate;
 
     @Column
     private Integer score;

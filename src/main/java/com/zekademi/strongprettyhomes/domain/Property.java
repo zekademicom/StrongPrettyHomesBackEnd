@@ -1,6 +1,7 @@
 package com.zekademi.strongprettyhomes.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -23,7 +25,7 @@ import java.util.Set;
 @Table(name = "properties")
 public class Property {
 
-   @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -141,6 +143,5 @@ public class Property {
         this.createDate = createDate;
         this.status = status;
     }
-
 
 }

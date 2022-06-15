@@ -1,19 +1,14 @@
 package com.zekademi.strongprettyhomes.service;
 
-import com.zekademi.strongprettyhomes.domain.Agent;
-import com.zekademi.strongprettyhomes.domain.ImageDB;
-import com.zekademi.strongprettyhomes.domain.Property;
-import com.zekademi.strongprettyhomes.domain.PropertyDetail;
+import com.zekademi.strongprettyhomes.domain.*;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
 import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
-import com.zekademi.strongprettyhomes.repository.AgentRepository;
-import com.zekademi.strongprettyhomes.repository.ImageRepository;
-import com.zekademi.strongprettyhomes.repository.PropertyDetailRepository;
-import com.zekademi.strongprettyhomes.repository.PropertyRepository;
+import com.zekademi.strongprettyhomes.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +21,8 @@ public class PropertyService {
     private ImageRepository imageRepository;
     private AgentRepository agentRepository;
     private PropertyDetailRepository propertyDetailRepository;
+    private UserRepository userRepository;
+
 
     private final static String PROPERTY_NOT_FOUND_MSG = "property with id %d not found";
     private final static String PROPERTY_DETAILS_NOT_FOUND_MSG = "property details with id %d not found";
@@ -38,7 +35,21 @@ public class PropertyService {
         return propertyRepository.findAllProperty();
     }
 
+    public PropertyDTO findById(Long id) throws ResourceNotFoundException {
+
+     PropertyDTO property = propertyRepository.findPropertyByIdx(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+
+//        long totalViews = property.getVisitCount()+1;
+//        property.setVisitCount(totalViews);
+//        propertyRepository.save(property);
+
+        return property;
+    }
+
     public void add(Property property, Agent agentId) throws BadRequestException {
+
+        property.setVisitCount(0L);
 
         Agent agent = agentRepository.findById(agentId.getId()).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(AGENT_NOT_FOUND_MSG, agentId.getId())));
@@ -49,12 +60,14 @@ public class PropertyService {
 //        Set<PropertyDetail> details = new HashSet<>();
 //        details.add(propertyDetail);
 //        property.setPropertyDetails(details);
- //       property.setBuiltIn(false);
+
+
         propertyRepository.save(property);
     }
 
     public void updateProperty(Long id, Property property, Long agentId, Long detailId) throws BadRequestException {
         property.setId(id);
+
         Agent agent = agentRepository.findById(agentId).get();
         PropertyDetail propertyDetail = propertyDetailRepository.findById(detailId).get();
 
@@ -68,9 +81,10 @@ public class PropertyService {
     }
 
      public void removeById(Long id) throws ResourceNotFoundException {
-     
-      // boolean reservationExist = propertyRepository.existsByProperty(property);
+        Property property = propertyRepository.findById(id).orElseThrow(() ->
+               new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
 
+//       boolean reservationExist = propertyRepository.existsByProperty(property);
 //       if (reservationExist){
 //          throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
         propertyRepository.deleteById(id);
