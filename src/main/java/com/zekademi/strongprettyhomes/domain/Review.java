@@ -9,8 +9,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -32,8 +31,8 @@ public class Review {
 //    @DateTimeFormat(pattern = "dd/MM/yyyy")
 //    Date createDate;//const ekle
 
-
-    private ZonedDateTime activation_date = ZonedDateTime.now();
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate localDate;
 
     @Column
     private Integer score;

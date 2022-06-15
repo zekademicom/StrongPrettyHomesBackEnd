@@ -40,7 +40,7 @@ public class ReviewController {
     }
     @PatchMapping("/admin/auth")//?????
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") ReviewDTO review) {
+    public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") Review review) {
 
         reviewService.updateReview(review);
 

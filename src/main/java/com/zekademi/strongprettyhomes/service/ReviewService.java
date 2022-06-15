@@ -3,6 +3,7 @@ package com.zekademi.strongprettyhomes.service;
 
 import com.zekademi.strongprettyhomes.domain.Review;
 import com.zekademi.strongprettyhomes.domain.User;
+import com.zekademi.strongprettyhomes.domain.enumeration.UserRole;
 import com.zekademi.strongprettyhomes.dto.ReviewDTO;
 import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
@@ -11,7 +12,6 @@ import com.zekademi.strongprettyhomes.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
 
 @AllArgsConstructor
 @Service
@@ -35,24 +35,19 @@ public class ReviewService {
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, id)));
     }
 
-    public void updateReview(ReviewDTO review) throws BadRequestException {
-        ZonedDateTime activation_date = ZonedDateTime.now();
-        String updatedReview;
+    public void updateReview(Review review) throws BadRequestException {
+
         Review reviewExist = reviewRepository.findById(review.getId()).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, review)));
-        if (reviewExist.getUser().getBuiltIn()) {
+
+        if (reviewExist.getUser().getRole().getName().equals(UserRole.ROLE_ADMIN)) {
             reviewExist.setStatus(review.getStatus());
         } else {
             throw new BadRequestException("You dont have permission to update status");
         }
-        if (!review.getReview().equals(reviewExist.getReview())) {
-            reviewExist.setActivation_date(activation_date);//create de string deger problem cikartabilir
-            updatedReview = review.getReview();
-        } else {
-            throw new BadRequestException("");
-        }
-        reviewExist.setReview(updatedReview);
-
+        if (!review.getReview().equals(reviewExist.getReview()))
+            reviewExist.setReview(review.getReview());//create de string deger problem cikartabilir
+            reviewExist.setLocalDate(review.getLocalDate());
 
         reviewRepository.save(reviewExist);
     }
