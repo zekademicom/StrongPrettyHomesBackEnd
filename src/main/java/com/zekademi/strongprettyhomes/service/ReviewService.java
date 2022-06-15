@@ -40,8 +40,7 @@ public class ReviewService {
         String updatedReview;
         Review reviewExist = reviewRepository.findById(review.getId()).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, review)));
-        User user = new User();
-        if (user.getBuiltIn()) {
+        if (reviewExist.getUser().getBuiltIn()) {
             reviewExist.setStatus(review.getStatus());
         } else {
             throw new BadRequestException("You dont have permission to update status");
