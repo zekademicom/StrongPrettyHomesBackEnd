@@ -34,7 +34,20 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
-//deneme
+ public void updateReview(Review review) {
+
+        Review reviewExist=reviewRepository.findById(review.getId())
+                .orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,review)));
+        if(!review.getUser().getRole().equals(UserRole.ROLE_ADMIN)){
+           throw new BadRequestException("You dont have permission to update status") ;
+        }else {
+            reviewExist.setStatus(review.getStatus());
+        }
+        if(!reviewExist.getReview().equals(review.getReview())){
+            reviewExist.setReview(review.getReview());
+        }
+        reviewRepository.save(reviewExist);
+    }
 
 
 
