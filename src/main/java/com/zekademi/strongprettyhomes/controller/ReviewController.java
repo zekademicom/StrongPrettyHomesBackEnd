@@ -51,6 +51,17 @@ public class ReviewController {
         ReviewDTO review = reviewService.findByIdAndUserId(id, userId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
+    @PostMapping("/admin/add")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> addReview(@Valid @RequestBody Review review,
+                                                            @RequestParam(value = "propertyId") Property propertyId){
+
+        reviewService.add(review,propertyId);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("Review added successfully!", true);
+        return new ResponseEntity<>(map, HttpStatus.CREATED);
+    }
+    
     @PatchMapping("/admin/auth")//?????
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") Review review) {
@@ -65,7 +76,7 @@ public class ReviewController {
     
     
     
-     @DeleteMapping("/{id}/auth")
+     @DeleteMapping("/{id}/delete")
     @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
     public ResponseEntity<Map<String, Boolean>> deleteReview(@PathVariable Long id) {
         reviewService.removeById(id);
