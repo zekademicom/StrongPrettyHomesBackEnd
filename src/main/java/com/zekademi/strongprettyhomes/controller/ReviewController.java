@@ -51,8 +51,8 @@ public class ReviewController {
         ReviewDTO review = reviewService.findByIdAndUserId(id, userId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
-    @PostMapping("/admin/add")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/add")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> addReview(@Valid @RequestBody Review review,
                                                             @RequestParam(value = "propertyId") Property propertyId){
 
