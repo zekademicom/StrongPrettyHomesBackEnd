@@ -23,6 +23,16 @@ public class ReviewService {
                 new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, propertyId)));
         return reviewRepository.findAllByUserId(property);
     }
+     
+    public void add(Review review,Property propertyId,Long userId) throws BadRequestException {
+
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+
+        review.setProperty(propertyId);
+        review.setUser(user);
+        reviewRepository.save(review);
+    }
 
 //deneme
 
