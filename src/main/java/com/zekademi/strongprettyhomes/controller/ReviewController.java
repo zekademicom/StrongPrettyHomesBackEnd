@@ -65,7 +65,7 @@ public class ReviewController {
     
     
     
-     @DeleteMapping("/{id}/delete")
+     @DeleteMapping("/{id}/auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
     public ResponseEntity<Map<String, Boolean>> deleteReview(@PathVariable Long id) {
         reviewService.removeById(id);
