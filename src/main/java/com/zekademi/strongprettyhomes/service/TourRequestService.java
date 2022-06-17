@@ -90,4 +90,9 @@ public class TourRequestService {
             else throw new BadRequestException("Only adjust approved");
         }else throw new BadRequestException("User request not pending");
     }
+
+    public List<TourRequestDTO> fetchAllTourRequest() {
+        return tourRequestRepository.findAllBy();
+    }
+
 }
