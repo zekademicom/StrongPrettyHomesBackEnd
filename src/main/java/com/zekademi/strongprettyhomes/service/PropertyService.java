@@ -8,7 +8,6 @@ import com.zekademi.strongprettyhomes.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,37 +16,35 @@ import java.util.Set;
 @Service
 public class PropertyService {
 
-    private PropertyRepository propertyRepository;
-    private ImageRepository imageRepository;
-    private AgentRepository agentRepository;
-    private PropertyDetailRepository propertyDetailRepository;
-    private UserRepository userRepository;
+    private final PropertyRepository propertyRepository;
+    private final AgentRepository agentRepository;
+    private final PropertyDetailRepository propertyDetailRepository;
+    private final UserRepository userRepository;
 
 
     private final static String PROPERTY_NOT_FOUND_MSG = "property with id %d not found";
-    private final static String PROPERTY_DETAILS_NOT_FOUND_MSG = "property details with id %d not found";
     private final static String AGENT_NOT_FOUND_MSG = "agent with id %d not found";
-    private final static String IMAGE_NOT_FOUND_MSG = "property with id %s not found";
-    private final static String PRICE_DOESNT_MATCH = "It doesnt must price 1 %d grater than price 2 %d";
 
 
-    public List<PropertyDTO> fetchAllProperties(){
+    public List<PropertyDTO> fetchAllProperties() {
+
         return propertyRepository.findAllProperty();
     }
 
     public PropertyDTO findById(Long id) throws ResourceNotFoundException {
 
-     PropertyDTO property = propertyRepository.findPropertyByIdx(id).orElseThrow(() ->
+        Property property = propertyRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
 
-//        long totalViews = property.getVisitCount()+1;
-//        property.setVisitCount(totalViews);
-//        propertyRepository.save(property);
+        Long totalCount = property.getVisitCount();
+        property.setVisitCount(totalCount + 1);
+        propertyRepository.save(property);
 
-        return property;
+        return propertyRepository.findPropertyByIdx(id).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
     }
 
-    public void add(Property property, Agent agentId) throws BadRequestException {
+    public void add(Property property, Agent agentId, Long detailId) throws BadRequestException {
 
         property.setVisitCount(0L);
 
@@ -55,11 +52,11 @@ public class PropertyService {
                 new ResourceNotFoundException(String.format(AGENT_NOT_FOUND_MSG, agentId.getId())));
         property.setAgent(agent);
 
-//        PropertyDetail propertyDetail = propertyDetailRepository.findById(detailId).orElseThrow(() ->
-//                new ResourceNotFoundException(String.format(AGENT_NOT_FOUND_MSG, detailId)));
-//        Set<PropertyDetail> details = new HashSet<>();
-//        details.add(propertyDetail);
-//        property.setPropertyDetails(details);
+        PropertyDetail propertyDetail = propertyDetailRepository.findById(detailId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(AGENT_NOT_FOUND_MSG, detailId)));
+        Set<PropertyDetail> details = new HashSet<>();
+        details.add(propertyDetail);
+        property.setPropertyDetails(details);
 
 
         propertyRepository.save(property);
@@ -80,14 +77,15 @@ public class PropertyService {
         propertyRepository.save(property);
     }
 
-     public void removeById(Long id) throws ResourceNotFoundException {
+    public void removeById(Long id) throws ResourceNotFoundException {
         Property property = propertyRepository.findById(id).orElseThrow(() ->
-               new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+
 
 //       boolean reservationExist = propertyRepository.existsByProperty(property);
 //       if (reservationExist){
 //          throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
         propertyRepository.deleteById(id);
-   }
 
+    }
 }

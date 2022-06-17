@@ -1,7 +1,7 @@
 package com.zekademi.strongprettyhomes.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zekademi.strongprettyhomes.domain.enumeration.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -66,12 +66,24 @@ public class User  {
     @Column(nullable = false, length = 15)
     private String zipCode;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roles_id", referencedColumnName = "id")
     private Role role;
 
     @Column(nullable = false)
     private Boolean builtIn;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<TourRequest> tourRequests;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Review> reviews= new HashSet<>();
+
+//    @Column
+//    private Boolean isLiked;
 
 
     public User( String firstName, String lastName, String password, String phoneNumber, String email,
@@ -106,7 +118,6 @@ public class User  {
 
         if (role.getName().equals(UserRole.ROLE_ADMIN))
             return "Administrator";
-
         return "User";
     }
 }

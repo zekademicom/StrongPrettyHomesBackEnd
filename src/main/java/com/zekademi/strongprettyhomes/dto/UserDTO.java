@@ -3,6 +3,7 @@ package com.zekademi.strongprettyhomes.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zekademi.strongprettyhomes.domain.Role;
+import com.zekademi.strongprettyhomes.domain.User;
 import com.zekademi.strongprettyhomes.domain.enumeration.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -66,6 +67,16 @@ public class UserDTO {
         this.zipCode = zipCode;
         this.role = role;
         this.builtIn = builtIn;
+    }
+
+    public UserDTO(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.phoneNumber = user.getPhoneNumber();
+        this.email = user.getEmail();
+        this.address = user.getAddress();
+        this.zipCode = user.getZipCode();
+        this.role = user.getRoles();
     }
 
     public void setRoles(Role role) {

@@ -1,13 +1,12 @@
 package com.zekademi.strongprettyhomes.domain;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zekademi.strongprettyhomes.domain.enumeration.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 
 @Getter
 @Setter

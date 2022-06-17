@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zekademi.strongprettyhomes.domain.*;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
@@ -14,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class PropertyDTO {
 
     private Long id;
@@ -59,29 +59,11 @@ public class PropertyDTO {
 
     private Set<Long> propertyDetails;
 
-    public Set<String> getImageId(Set<ImageDB> images) {
-        Set<String> img = new HashSet<>();
-        ImageDB[] imageDBs = images.toArray(new ImageDB[images.size()]);
-
-        for (int i = 0; i < images.size(); i++) {
-            img.add(imageDBs[i].getId());
-        }
-        return img;
-    }
-
-    public Set<Long> getDetailId(Set<PropertyDetail> details) {
-        Set<Long> det = new HashSet<>();
-        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
-        for (int i = 0; i < details.size(); i++) {
-            det.add(details1[i].getId());
-        }
-        return det;
-    }
 
     public PropertyDTO(Property property) {
         this.id = property.getId();
         this.title = property.getTitle();
-        this.description = property.getDescription() ;
+        this.description = property.getDescription();
         this.category = property.getCategory();
         this.type = property.getType();
         this.bedrooms = property.getBedrooms();
@@ -103,5 +85,23 @@ public class PropertyDTO {
 
     }
 
+    public Set<String> getImageId(Set<ImageDB> images) {
+        Set<String> img = new HashSet<>();
+        ImageDB[] imageDBs = images.toArray(new ImageDB[images.size()]);
+
+        for (int i = 0; i < images.size(); i++) {
+            img.add(imageDBs[i].getId());
+        }
+        return img;
+    }
+
+    public Set<Long> getDetailId(Set<PropertyDetail> details) {
+        Set<Long> det = new HashSet<>();
+        PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
+        for (int i = 0; i < details.size(); i++) {
+            det.add(details1[i].getId());
+        }
+        return det;
+    }
 
 }

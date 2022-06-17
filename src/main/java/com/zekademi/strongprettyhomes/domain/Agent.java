@@ -1,5 +1,6 @@
 package com.zekademi.strongprettyhomes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,6 +50,7 @@ public class Agent {
     @Column(nullable = false, unique = true, length = 120)
     private String email;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "agent")
     private List<Property> properties = new ArrayList<>();
 
@@ -63,5 +65,17 @@ public class Agent {
         this.email = email;
     }
 }
+tchType.LAZY, mappedBy = "agent")
+    private List<Property> properties = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "agent_image_id", referencedColumnName = "id")
+    private AgentImage agentImage;
 
+    public Agent(String firstName, String lastName, String phoneNumber, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+}
