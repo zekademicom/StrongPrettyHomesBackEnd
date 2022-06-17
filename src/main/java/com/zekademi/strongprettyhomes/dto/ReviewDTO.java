@@ -27,7 +27,6 @@ public class ReviewDTO {
     private ReviewStatus status;
 
 
-
     public ReviewDTO(Review review) {
         this.id = review.getId();
         this.review = review.getReview();
@@ -38,9 +37,10 @@ public class ReviewDTO {
     }
     public String convertDateToString(Review review){//date string e donusturuldu
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        String date=df.format(review.getLocalDate());
+        String date=df.format(review.getActivationDate());
         return date;
 
     }
 
 }
+

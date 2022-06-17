@@ -49,6 +49,7 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         user.setBuiltIn(false);
+       // user.setIsLiked(false);
 
         Role customerRole = roleRepository.findByName(UserRole.ROLE_CUSTOMER)
                 .orElseThrow(() -> new ResourceNotFoundException("Error: Role is not found."));
@@ -151,6 +152,4 @@ public class UserService {
 
         userRepository.deleteById(id);
     }
-
-
 }

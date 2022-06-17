@@ -12,10 +12,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "propertydetails")
+@Table(name = "property_details")
 public class PropertyDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String title;
+
 }

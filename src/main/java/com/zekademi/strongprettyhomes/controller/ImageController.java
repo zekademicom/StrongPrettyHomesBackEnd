@@ -2,6 +2,7 @@ package com.zekademi.strongprettyhomes.controller;
 
 import com.zekademi.strongprettyhomes.domain.ImageDB;
 import com.zekademi.strongprettyhomes.dto.ImageDTO;
+import com.zekademi.strongprettyhomes.projection.ProjectUser;
 import com.zekademi.strongprettyhomes.service.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -81,4 +82,15 @@ public class ImageController {
 
         return new ResponseEntity<>(fileDB.getImage(), headers, HttpStatus.CREATED);
     }
+
+    @PatchMapping("/{id}/feature")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> setFeature(@PathVariable String id){
+        imageService.setFeatured(id);
+
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map,HttpStatus.OK);
+    }
+
 }

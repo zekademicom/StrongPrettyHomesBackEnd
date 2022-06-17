@@ -26,7 +26,5 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
 
     List<Property> findAll(Specification<Property> specification);
 
-
-
-
+    Long findPropertyByVisitCount(Long Id) throws ResourceNotFoundException;
 }

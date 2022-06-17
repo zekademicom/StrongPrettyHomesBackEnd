@@ -1,7 +1,7 @@
 package com.zekademi.strongprettyhomes.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -114,13 +113,19 @@ public class Property {
     @JoinColumn(name = "agent_id", nullable = false)
     private Agent agent;
 
-
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "property_id"),
             inverseJoinColumns = @JoinColumn(name = "detail_id"))
     private Set<PropertyDetail> propertyDetails;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "property")
+    private Set<TourRequest> tourRequests;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Review> reviews= new HashSet<>();
 
     public Property(String title, String description, PropertyCategory category, PropertyType type,
                     String bedrooms, String bathrooms, String garages, Double area, Integer price,

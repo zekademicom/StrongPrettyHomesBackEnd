@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.zekademi.strongprettyhomes.controller;
 
 
@@ -76,6 +77,10 @@ public class PropertyController {
 package com.zekademi.strongprettyhomes.controller;
 
 
+=======
+package com.zekademi.strongprettyhomes.controller;
+
+>>>>>>> main
 import com.zekademi.strongprettyhomes.domain.Agent;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.dto.PropertyDTO;
@@ -92,12 +97,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpServletRequest;
+>>>>>>> main
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 @AllArgsConstructor
 @RestController
 @RequestMapping("/property")
@@ -121,9 +133,16 @@ public class PropertyController {
     @PostMapping("/admin/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> addProperty(@RequestParam(value = "agentId") Agent agentId,
+<<<<<<< HEAD
                                                             @Valid @RequestBody Property property) {
 
         propertyService.add(property, agentId);
+=======
+                                                            @Valid @RequestBody Property property,
+                                                            @RequestParam(value = "detailId") Long detailId) {
+
+        propertyService.add(property, agentId,detailId);
+>>>>>>> main
         Map<String, Boolean> map = new HashMap<>();
         map.put("Property created successfully!", true);
         return new ResponseEntity<>(map, HttpStatus.CREATED);
@@ -172,6 +191,10 @@ public class PropertyController {
         return propertyRepository.findAll(customerNameSpec);
     }
 
+<<<<<<< HEAD
 
+}
+>>>>>>> main
+=======
 }
 >>>>>>> main
