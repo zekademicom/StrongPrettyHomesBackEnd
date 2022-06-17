@@ -1,24 +1,19 @@
 package com.zekademi.strongprettyhomes.service;
 
-import com.zekademi.strongprettyhomes.domain.enumeration.UserRole;
-
 import com.zekademi.strongprettyhomes.domain.Property;
-
+import com.zekademi.strongprettyhomes.domain.Review;
+import com.zekademi.strongprettyhomes.domain.User;
 import com.zekademi.strongprettyhomes.dto.ReviewDTO;
+import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
 import com.zekademi.strongprettyhomes.repository.PropertyRepository;
 import com.zekademi.strongprettyhomes.repository.ReviewRepository;
+import com.zekademi.strongprettyhomes.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import com.zekademi.strongprettyhomes.domain.Review;
-import com.zekademi.strongprettyhomes.domain.User;
-import com.zekademi.strongprettyhomes.exception.BadRequestException;
-import com.zekademi.strongprettyhomes.repository.UserRepository;
-import java.time.ZonedDateTime;
-
-
 
 @AllArgsConstructor
 @Service
@@ -50,32 +45,39 @@ public class ReviewService {
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, id)));
     }
 
-    public void updateReview(Review review) throws BadRequestException {
-
+    public void updateReview(ReviewDTO review) throws BadRequestException {
+        LocalDate activation_date = LocalDate.now();
+        String updatedReview;
         Review reviewExist = reviewRepository.findById(review.getId()).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, review)));
-
-        if (reviewExist.getUser().getRole().getName().equals(UserRole.ROLE_ADMIN)) {
+        if (reviewExist.getUser().getBuiltIn()) {
             reviewExist.setStatus(review.getStatus());
         } else {
             throw new BadRequestException("You dont have permission to update status");
         }
-        if (!review.getReview().equals(reviewExist.getReview()))
-            reviewExist.setReview(review.getReview());//create de string deger problem cikartabilir
-            reviewExist.setLocalDate(review.getLocalDate());
-
+        if (!review.getReview().equals(reviewExist.getReview())) {
+            reviewExist.setActivationDate(activation_date);//create de string deger problem cikartabilir
+            updatedReview = review.getReview();
+        } else {
+            throw new BadRequestException("");
+        }
+        reviewExist.setReview(updatedReview);
         reviewRepository.save(reviewExist);
     }
 
 
+    public void removeById(Long id) throws ResourceNotFoundException {
+        reviewRepository.deleteById(id);
+    }
 
-        public void removeById (Long id) throws ResourceNotFoundException {
-            reviewRepository.deleteById(id);
+    public void add(Review review, Property propertyId, Long userId) throws BadRequestException {
 
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
 
-        }
-
-
-
-
+        review.setProperty(propertyId);
+        review.setUser(user);
+        reviewRepository.save(review);
+    }
 }
+

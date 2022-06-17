@@ -1,9 +1,7 @@
 package com.zekademi.strongprettyhomes.dto;
 
-import com.zekademi.strongprettyhomes.domain.Agent;
-import com.zekademi.strongprettyhomes.domain.ImageDB;
-import com.zekademi.strongprettyhomes.domain.Property;
-import com.zekademi.strongprettyhomes.domain.PropertyDetail;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zekademi.strongprettyhomes.domain.*;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyCategory;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyStatus;
 import com.zekademi.strongprettyhomes.domain.enumeration.PropertyType;
@@ -17,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class PropertyDTO {
 
     private Long id;
@@ -38,7 +35,7 @@ public class PropertyDTO {
 
     private Double area;
 
-    private Double price;
+    private Integer price;
 
     private String location;
 
@@ -52,8 +49,6 @@ public class PropertyDTO {
 
     private Date createdDate;
 
-    private Long likes;
-
     private Long visitCount;
 
     private PropertyStatus status;
@@ -65,21 +60,10 @@ public class PropertyDTO {
     private Set<Long> propertyDetails;
 
 
-
-    public Set<String> getImageId(Set<ImageDB> images) {
-        Set<String> img = new HashSet<>();
-        ImageDB[] imageDBs = images.toArray(new ImageDB[images.size()]);
-
-        for (int i = 0; i < images.size(); i++) {
-            img.add(imageDBs[i].getId());
-        }
-        return img;
-    }
-
     public PropertyDTO(Property property) {
         this.id = property.getId();
         this.title = property.getTitle();
-        this.description = property.getDescription() ;
+        this.description = property.getDescription();
         this.category = property.getCategory();
         this.type = property.getType();
         this.bedrooms = property.getBedrooms();
@@ -93,21 +77,32 @@ public class PropertyDTO {
         this.city = property.getCity();
         this.district = property.getDistrict();
         this.createdDate = property.getCreateDate();
-        this.likes = property.getLikes();
         this.visitCount = property.getVisitCount();
         this.status = property.getStatus();
-//        this.image = getImageId(property.getImage());
+        this.image = getImageId(property.getImage());
         this.agent = property.getAgent();
         this.propertyDetails = getDetailId(property.getPropertyDetails());
+
+    }
+
+    public Set<String> getImageId(Set<ImageDB> images) {
+        Set<String> img = new HashSet<>();
+        ImageDB[] imageDBs = images.toArray(new ImageDB[images.size()]);
+
+        for (int i = 0; i < images.size(); i++) {
+            img.add(imageDBs[i].getId());
+        }
+        return img;
     }
 
     public Set<Long> getDetailId(Set<PropertyDetail> details) {
         Set<Long> det = new HashSet<>();
         PropertyDetail[] details1 = details.toArray(new PropertyDetail[details.size()]);
-
         for (int i = 0; i < details.size(); i++) {
             det.add(details1[i].getId());
         }
         return det;
     }
+
+
 }
