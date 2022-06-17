@@ -78,6 +78,15 @@ public class ReviewController {
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+  
+   @DeleteMapping("/{id}/delete")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
+    public ResponseEntity<Map<String, Boolean>> deleteReview(@PathVariable Long id) {
+        reviewService.removeById(id);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     
-}
+    }
 
+ }

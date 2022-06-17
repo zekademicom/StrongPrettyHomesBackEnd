@@ -1,4 +1,5 @@
 package com.zekademi.strongprettyhomes.dto;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.TourRequest;
@@ -34,11 +35,8 @@ public class TourRequestDTO {
         this.tourRequestTime = tourRequest.getTourRequestTime();
         this.adult = tourRequest.getAdult();
         this.child = tourRequest.getChild();
-//        this.userId = new UserDTO(tourRequest.getUser());
-//        this.property = tourRequest.getProperty().getId();
         this.property = new PropertyDTO(tourRequest.getProperty());
         this.userId = tourRequest.getUser().getId();
         this.status = tourRequest.getStatus();
     }
 }
-

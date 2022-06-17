@@ -104,5 +104,4 @@ public class PropertyDTO {
         return det;
     }
 
-
 }

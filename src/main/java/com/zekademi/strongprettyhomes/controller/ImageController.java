@@ -92,4 +92,5 @@ public class ImageController {
         map.put("success", true);
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
+
 }

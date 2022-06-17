@@ -27,6 +27,7 @@ public class PropertyService {
 
 
     public List<PropertyDTO> fetchAllProperties() {
+
         return propertyRepository.findAllProperty();
     }
 
@@ -57,6 +58,7 @@ public class PropertyService {
         details.add(propertyDetail);
         property.setPropertyDetails(details);
 
+
         propertyRepository.save(property);
     }
 
@@ -79,12 +81,11 @@ public class PropertyService {
         Property property = propertyRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
 
+
 //       boolean reservationExist = propertyRepository.existsByProperty(property);
 //       if (reservationExist){
 //          throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
         propertyRepository.deleteById(id);
+
     }
-
-
 }
-
