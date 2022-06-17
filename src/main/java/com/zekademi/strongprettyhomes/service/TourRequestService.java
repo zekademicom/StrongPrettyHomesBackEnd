@@ -94,4 +94,5 @@ public class TourRequestService {
     public List<TourRequestDTO> fetchAllTourRequest() {
         return tourRequestRepository.findAllBy();
     }
+
 }
