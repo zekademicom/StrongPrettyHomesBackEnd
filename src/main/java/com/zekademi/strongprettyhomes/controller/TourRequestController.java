@@ -1,48 +1,14 @@
 package com.zekademi.strongprettyhomes.controller;
 
-<<<<<<< HEAD
-=======
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.TourRequest;
 import com.zekademi.strongprettyhomes.domain.enumeration.TourRequestStatus;
->>>>>>> main
 import com.zekademi.strongprettyhomes.dto.TourRequestDTO;
 import com.zekademi.strongprettyhomes.service.TourRequestService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
-
-@AllArgsConstructor
-@RestController
-@Produces(MediaType.APPLICATION_JSON)
-@RequestMapping("/tourrequests")
-public class TourRequestController {
-
-    public TourRequestService tourrequestService;
-
-    @GetMapping("/admin/all")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<TourRequestDTO>> getAllTourRequest() {
-        List<TourRequestDTO> tourrequest = tourrequestService.fetchAllTourRequest();
-
-        return new ResponseEntity<>(tourrequest, HttpStatus.OK);
-    }
-
-}
-
-
-
-
-=======
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,6 +16,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -123,5 +90,12 @@ public class TourRequestController {
         map.put("Request status updated successfully", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    @GetMapping("/admin/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<TourRequestDTO>> getAllTourRequest() {
+        List<TourRequestDTO> tourrequest = tourRequestService.fetchAllTourRequest();
+
+        return new ResponseEntity<>(tourrequest, HttpStatus.OK);
+    }
 }
->>>>>>> main

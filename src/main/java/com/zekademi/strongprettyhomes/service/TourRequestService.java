@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-
-package com.zekademi.strongprettyhomes.service;
-
-import com.zekademi.strongprettyhomes.domain.User;
-import com.zekademi.strongprettyhomes.dto.TourRequestDTO;
-import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
-=======
 package com.zekademi.strongprettyhomes.service;
 
 import com.zekademi.strongprettyhomes.domain.Property;
@@ -17,19 +9,14 @@ import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.exception.ConflictException;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
 import com.zekademi.strongprettyhomes.repository.PropertyRepository;
->>>>>>> main
 import com.zekademi.strongprettyhomes.repository.TourRequestRepository;
 import com.zekademi.strongprettyhomes.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-import java.util.List;
-=======
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
->>>>>>> main
 
 @AllArgsConstructor
 @Service
@@ -37,33 +24,11 @@ public class TourRequestService {
 
     private final TourRequestRepository tourRequestRepository;
     private final UserRepository userRepository;
-<<<<<<< HEAD
-=======
     private final PropertyRepository propertyRepository;
->>>>>>> main
 
     private final static String TOUR_REQUEST_NOT_FOUND_MSG = "tour request with id %d not found";
     private final static String USER_NOT_FOUND_MSG = "user with id %d not found";
 
-<<<<<<< HEAD
-    public List<TourRequestDTO> fetchAllTourRequest() {
-        return tourRequestRepository.findAllBy();
-    }
-
-    public TourRequestDTO findById(Long id) {
-        return  tourRequestRepository.findByIdOrderById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(TOUR_REQUEST_NOT_FOUND_MSG, id)));
-    }
-
-    public TourRequestDTO findByIdAndUserId(Long id, Long userId) throws ResourceNotFoundException{
-        User user = userRepository.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
-
-        return tourRequestRepository.findByIdAndUserId(id, user).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(TOUR_REQUEST_NOT_FOUND_MSG, id)));
-    }
-
-=======
     public TourRequestDTO findById(Long id) {
         return tourRequestRepository.findByIdOrderById(id).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(TOUR_REQUEST_NOT_FOUND_MSG, id)));
@@ -125,5 +90,8 @@ public class TourRequestService {
             else throw new BadRequestException("Only adjust approved");
         }else throw new BadRequestException("User request not pending");
     }
->>>>>>> main
+
+    public List<TourRequestDTO> fetchAllTourRequest() {
+        return tourRequestRepository.findAllBy();
+    }
 }
