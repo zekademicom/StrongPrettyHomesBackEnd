@@ -67,11 +67,15 @@ public class ReviewController {
         ReviewDTO review = reviewService.findByIdAndUserId(id, userId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
-    @PatchMapping("/admin/auth")//?????
-    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") ReviewDTO review) {
+    @PutMapping("/update/auth")//?????
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") Long reviewId,
+                                                             @Valid @RequestBody Review review,
+                                                             @RequestParam(value = "propertyId") Property propertyId,
+                                                             HttpServletRequest request) {
 
-        reviewService.updateReview(review);
+        Long userId = (Long) request.getAttribute("id");
+        reviewService.updateReview(reviewId,review,propertyId,userId);
 
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
