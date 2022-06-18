@@ -22,8 +22,8 @@ public class ReviewService {
     private final PropertyRepository propertyRepository;
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
-    private final static String PROPERTY_NOT_FOUND_MSG = "property with id %d not found";
-    private final static String USER_NOT_FOUND_MSG = "user with id %d not found";
+    private final static String PROPERTY_NOT_FOUND_MSG = "Property with id %d not found";
+    private final static String USER_NOT_FOUND_MSG = "User with id %d not found";
     private final static String REVIEW_NOT_FOUND_MSG = "Review with id %d not found";
 
     public List<ReviewDTO> findAllByPropertyId(Long propertyId) {
@@ -67,6 +67,13 @@ public class ReviewService {
 
     public void removeById(Long id) throws ResourceNotFoundException {
         reviewRepository.deleteById(id);
+    }
+    
+    public void removeUserReviewById(Long userId, Long id) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+        reviewRepository.deleteReviewByIdAndUser(id,user);
+
     }
 
     public void add(Review review, Property propertyId, Long userId) throws BadRequestException {
