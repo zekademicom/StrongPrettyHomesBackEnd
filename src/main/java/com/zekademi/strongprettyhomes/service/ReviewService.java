@@ -45,23 +45,22 @@ public class ReviewService {
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, id)));
     }
 
-    public void updateReview(ReviewDTO review) throws BadRequestException {
-        LocalDate activation_date = LocalDate.now();
-        String updatedReview;
-        Review reviewExist = reviewRepository.findById(review.getId()).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, review)));
-        if (reviewExist.getUser().getBuiltIn()) {
+  public void updateReview(Long reviewId,Review review,Property propertyId,Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+        Review reviewExist=reviewRepository.findById(reviewId)
+                .orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
+        if(user.getRole().equals(UserRole.ROLE_ADMIN)){
+            throw new BadRequestException("You dont have permission to update status") ;
+        }else {
             reviewExist.setStatus(review.getStatus());
-        } else {
-            throw new BadRequestException("You dont have permission to update status");
         }
-        if (!review.getReview().equals(reviewExist.getReview())) {
-            reviewExist.setActivationDate(activation_date);//create de string deger problem cikartabilir
-            updatedReview = review.getReview();
-        } else {
-            throw new BadRequestException("");
-        }
-        reviewExist.setReview(updatedReview);
+
+        reviewExist.setUser(user);
+        reviewExist.setReview(review.getReview());
+        reviewExist.setScore(review.getScore());
+        reviewExist.setActivationDate(review.getActivationDate());
+        reviewExist.setProperty(propertyId);
         reviewRepository.save(reviewExist);
     }
 
