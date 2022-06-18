@@ -58,6 +58,17 @@ public class ReviewService {
 
     reviewRepository.save(reviewExist);
 }
+      
+    public void updateReviewStatus(String status,Long reviewId) {
+
+        Review review = reviewRepository.findById(reviewId).orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
+        if(status.equalsIgnoreCase("PUBLISHED"))
+        review.setStatus(ReviewStatus.PUBLISHED);
+        else if(status.equalsIgnoreCase("REJECTED"))
+            review.setStatus(ReviewStatus.REJECTED);
+        reviewRepository.save(review);
+
+    }
 
     public void removeById(Long id) throws ResourceNotFoundException {
         reviewRepository.deleteById(id);
