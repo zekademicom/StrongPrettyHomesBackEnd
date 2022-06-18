@@ -45,34 +45,19 @@ public class ReviewService {
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, id)));
     }
 
-  public void updateReview(Long reviewId,Review review,Property propertyId,Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
-        Review reviewExist=reviewRepository.findById(reviewId)
-                .orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
-        if(user.getRole().equals(UserRole.ROLE_ADMIN)){
-            throw new BadRequestException("You dont have permission to update status") ;
-        }else {
-            reviewExist.setStatus(review.getStatus());
-        }
+ public void updateReview(Long reviewId,Review review,Long userId) {
+    User user = userRepository.findById(userId).orElseThrow(() ->
+            new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+    Review reviewExist=reviewRepository.findById(reviewId)
+            .orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
 
-        reviewExist.setUser(user);
-        reviewExist.setReview(review.getReview());
-        reviewExist.setScore(review.getScore());
-        reviewExist.setActivationDate(review.getActivationDate());
-        reviewExist.setProperty(propertyId);
-        reviewRepository.save(reviewExist);
-    }
-        public void updateReviewStatus(String status,Long reviewId) {
+    reviewExist.setUser(user);
+    reviewExist.setReview(review.getReview());
+    reviewExist.setScore(review.getScore());
+    reviewExist.setActivationDate(review.getActivationDate());
 
-        Review review = reviewRepository.findById(reviewId).orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
-        if(status.equalsIgnoreCase("PUBLISHED"))
-        review.setStatus(ReviewStatus.PUBLISHED);
-        else if(status.equalsIgnoreCase("REJECTED"))
-            review.setStatus(ReviewStatus.REJECTED);
-        reviewRepository.save(review);
-
-    }
+    reviewRepository.save(reviewExist);
+}
 
     public void removeById(Long id) throws ResourceNotFoundException {
         reviewRepository.deleteById(id);
