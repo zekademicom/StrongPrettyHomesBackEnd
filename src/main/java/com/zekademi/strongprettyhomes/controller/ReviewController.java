@@ -59,6 +59,22 @@ public class ReviewController {
         return new ResponseEntity<>(map, HttpStatus.CREATED);
 
     }
+    
+    @PutMapping("/update/auth")
+@PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
+public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") Long reviewId,
+                                                         @Valid @RequestBody Review review,
+                                                         //@RequestParam(value = "propertyId") Property propertyId,
+                                                         HttpServletRequest request) {
+
+    Long userId = (Long) request.getAttribute("id");
+    reviewService.updateReview(reviewId,review,userId);
+
+    Map<String, Boolean> map = new HashMap<>();
+    map.put("success", true);
+
+    return new ResponseEntity<>(map, HttpStatus.OK);
+}
 
     @GetMapping("/{id}/auth")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
