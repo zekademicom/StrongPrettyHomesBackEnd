@@ -109,6 +109,19 @@ public class User  {
         this.role = roles;
         this.builtIn = builtIn;
     }
+    public User(Long id, String firstName, String lastName, String password, String phoneNumber,
+                String email, String address, String zipCode, Role roles, Boolean builtIn) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.role = roles;
+        this.builtIn = builtIn;
+    }
 
     public String getFullName() {
         return firstName + " " + lastName;

@@ -39,12 +39,18 @@ public class TourRequestService {
     }
 
     public void addTourRequest(TourRequest tourRequest, Long userId, Property propertyId) throws BadRequestException {
+        
+        boolean checkStatus = homeAvailability(propertyId.getId(), tourRequest.getTourRequestTime());
+
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
 
-        tourRequest.setStatus(TourRequestStatus.PENDING);
+        if (!checkStatus) tourRequest.setStatus(TourRequestStatus.PENDING);
+        else throw new BadRequestException("Property is already reserved! Please choose another Time");
+
         tourRequest.setProperty(propertyId);
         tourRequest.setUser(user);
+
         tourRequestRepository.save(tourRequest);
     }
 
