@@ -29,7 +29,7 @@ public class Review {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "Turkey")
     @NotNull(message = "Please enter the pick up time of the reservation")
     @Column(name = "activation_date", nullable = false)
-    private LocalDate activationDate;  //=LocalDate.now();
+    private LocalDate activationDate=LocalDate.now();
 
     @Column
     private Integer score;
@@ -44,7 +44,7 @@ public class Review {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 30, nullable = false)
-    private ReviewStatus status;
+    private ReviewStatus status=ReviewStatus.PENDING;
 
     public Review(String review, Integer score, User user, Property property, ReviewStatus status) {
         this.review = review;
