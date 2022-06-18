@@ -33,5 +33,5 @@ spring:
 
 backendapi:
   app:
-    jwtSecret: carRentalSecretKey
+    jwtSecret: strongPrettyHomesSecretKey
     jwtExpirationMs: 86400000
