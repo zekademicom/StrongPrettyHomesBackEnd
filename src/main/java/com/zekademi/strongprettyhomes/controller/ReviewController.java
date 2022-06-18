@@ -83,21 +83,7 @@ public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "
         ReviewDTO review = reviewService.findByIdAndUserId(id, userId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
-    @PutMapping("/update/auth")//?????
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") Long reviewId,
-                                                             @Valid @RequestBody Review review,
-                                                             @RequestParam(value = "propertyId") Property propertyId,
-                                                             HttpServletRequest request) {
 
-        Long userId = (Long) request.getAttribute("id");
-        reviewService.updateReview(reviewId,review,propertyId,userId);
-
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("success", true);
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
     @PatchMapping("/{id}/updateStatus")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> updateStatus(@RequestParam(value = "status") String status,
