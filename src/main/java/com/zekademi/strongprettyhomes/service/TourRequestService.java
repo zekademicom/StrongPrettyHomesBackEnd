@@ -97,6 +97,17 @@ public class TourRequestService {
         }else throw new BadRequestException("User request not pending");
     }
     
+    public void checkRequestByUser(Long id, TourRequestStatus status){
+        TourRequest existRequest = tourRequestRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Tour request not found"));
+
+        if (existRequest.getStatus().equals(TourRequestStatus.PENDING) || existRequest.getStatus().equals(TourRequestStatus.APPROVED)){
+            existRequest.setStatus(status);
+            if (status.equals(TourRequestStatus.CANCELED))tourRequestRepository.save(existRequest);
+            else throw new BadRequestException("Only adjust canceled");
+        }else throw new BadRequestException("User request not pending or approved");
+    }
+    
     public void removeById(Long id) throws ResourceNotFoundException {
         boolean reservationExists = tourRequestRepository.existsById(id);
         if (!reservationExists) throw new ResourceNotFoundException("reservation does not exist");
