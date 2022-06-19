@@ -120,5 +120,9 @@ public class TourRequestService {
     public List<TourRequestDTO> fetchAllTourRequest() {
         return tourRequestRepository.findAllBy();
     }
+    
+    public List<TourRequestDTO> fetchAllTourRequestByUser(Long userId) {
+        return tourRequestRepository.findAllByUserId(userId);
+    }
 }
 
