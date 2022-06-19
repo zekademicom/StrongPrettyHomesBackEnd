@@ -89,4 +89,13 @@ public class TourRequestController {
         map.put("Request status updated successfully", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+    
+    @DeleteMapping("/admin/{id}/auth")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> deleteReservation(@PathVariable Long id){
+        tourRequestService.removeById(id);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 }
