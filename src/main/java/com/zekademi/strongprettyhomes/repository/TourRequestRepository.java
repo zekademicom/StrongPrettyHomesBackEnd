@@ -19,7 +19,7 @@ import java.util.Optional;
 @Repository
 public interface TourRequestRepository extends JpaRepository<TourRequest, Long> {
 
-    List<TourRequestDTO> findAllByUserId(User userId);
+    List<TourRequestDTO> findAllByUserId(Long userId);
 
     @Transactional
     @Query("SELECT new com.zekademi.strongprettyhomes.dto.TourRequestDTO(r) FROM TourRequest r  WHERE r.id = ?1 and r.user.id = ?2")
