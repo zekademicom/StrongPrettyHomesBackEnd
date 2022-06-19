@@ -74,9 +74,13 @@ public class ReviewService {
         reviewRepository.deleteById(id);
     }
     
-    public void removeUserReviewById(Long userId, Long id) {
+      public void removeUserReviewById(Long userId, Long id) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+        Optional<ReviewDTO> reviews = reviewRepository.findReviews(userId,id);
+        if(reviews.isEmpty()){
+            throw new BadRequestException("You are unauthorized to delete this review!");
+        }
         reviewRepository.deleteReviewByIdAndUser(id,user);
 
     }
