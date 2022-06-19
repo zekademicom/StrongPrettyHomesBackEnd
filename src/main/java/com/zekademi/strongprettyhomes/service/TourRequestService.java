@@ -60,7 +60,7 @@ public class TourRequestService {
 
         Optional<TourRequest> reservationExist = tourRequestRepository.findById(id);
 
-        if (!(reservationExist.isPresent())) {
+        if (reservationExist.isEmpty()) {
             throw new ConflictException("Error: Reservation does not exist!");
         }
 
@@ -95,5 +95,11 @@ public class TourRequestService {
             if (status.equals(TourRequestStatus.APPROVED))tourRequestRepository.save(existRequest);
             else throw new BadRequestException("Only adjust approved");
         }else throw new BadRequestException("User request not pending");
+    }
+    
+    public void removeById(Long id) throws ResourceNotFoundException {
+        boolean reservationExists = tourRequestRepository.existsById(id);
+        if (!reservationExists) throw new ResourceNotFoundException("reservation does not exist");
+        tourRequestRepository.deleteById(id);
     }
 }
