@@ -88,4 +88,15 @@ public class PropertyService {
         propertyRepository.deleteById(id);
 
     }
+    
+      public Long setLike(Long id){
+        Property property = propertyRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Property not found"));
+
+        Long increaseLike = property.getLikeCount()+1;
+        property.setLikeCount(increaseLike);
+        propertyRepository.save(property);
+
+        return property.getLikeCount();
+    }
 }

@@ -96,5 +96,11 @@ public class PropertyController {
 
         return propertyRepository.findAll(customerNameSpec);
     }
+    
+    @GetMapping("/{id}/like")
+    public ResponseEntity<Long> setLike(@RequestParam Long id) {
+        Long increaseLikes = propertyService.setLike(id);
+        return new ResponseEntity<>(increaseLikes, HttpStatus.OK);
+    }
 
 }
