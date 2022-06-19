@@ -58,7 +58,6 @@ public class PropertyService {
         details.add(propertyDetail);
         property.setPropertyDetails(details);
 
-
         propertyRepository.save(property);
     }
 
@@ -78,13 +77,10 @@ public class PropertyService {
     }
 
     public void removeById(Long id) throws ResourceNotFoundException {
-        Property property = propertyRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, id)));
+     
+        boolean propertyExist = propertyRepository.existsById(id);
+        if (!propertyExist) throw new ResourceNotFoundException("property does not exist");
 
-
-//       boolean reservationExist = propertyRepository.existsByProperty(property);
-//       if (reservationExist){
-//          throw new ResourceNotFoundException("Reservation(s) exist for property!"); }
         propertyRepository.deleteById(id);
 
     }

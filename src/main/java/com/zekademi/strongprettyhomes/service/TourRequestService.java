@@ -69,7 +69,6 @@ public class TourRequestService {
         else if (checkStatus)
             throw new BadRequestException("This home is already reserved! Please choose another");
 
-
         reservationExist.get().setProperty(propertyId);
         reservationExist.get().setTourRequestTime(tourRequest.getTourRequestTime());
         reservationExist.get().setChild(tourRequest.getChild());
@@ -78,7 +77,6 @@ public class TourRequestService {
 
         tourRequestRepository.save(reservationExist.get());
     }
-
 
     public boolean homeAvailability(Long propertyId, LocalDateTime tourTime) {
         List<TourRequest> checkStatus = tourRequestRepository.checkStatus(propertyId, tourTime,
@@ -97,6 +95,22 @@ public class TourRequestService {
         }else throw new BadRequestException("User request not pending");
     }
     
+    public void checkRequestByUser(Long id, TourRequestStatus status, Long userId){
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User not found!"));
+        TourRequest existRequest = tourRequestRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Tour request not found"));
+        Optional<TourRequest> userRequest = user.getTourRequests().stream().filter(t -> t.getId() == existRequest.getId()).findFirst();
+
+        if (userRequest.isEmpty()) throw new ResourceNotFoundException("not found request");
+
+        if (userRequest.get().getStatus().equals(TourRequestStatus.PENDING) || userRequest.get().getStatus().equals(TourRequestStatus.APPROVED)){
+            existRequest.setStatus(status);
+            if (status.equals(TourRequestStatus.CANCELED))tourRequestRepository.save(existRequest);
+            else throw new BadRequestException("Only adjust canceled");
+        }else throw new BadRequestException("User request not pending or approved");
+    }
+    
     public void removeById(Long id) throws ResourceNotFoundException {
         boolean reservationExists = tourRequestRepository.existsById(id);
         if (!reservationExists) throw new ResourceNotFoundException("reservation does not exist");
@@ -105,6 +119,10 @@ public class TourRequestService {
 
     public List<TourRequestDTO> fetchAllTourRequest() {
         return tourRequestRepository.findAllBy();
+    }
+    
+    public List<TourRequestDTO> fetchAllTourRequestByUser(Long userId) {
+        return tourRequestRepository.findAllByUserId(userId);
     }
 }
 
