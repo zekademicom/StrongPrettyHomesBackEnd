@@ -71,6 +71,7 @@ public class ReviewService {
     }
 
     public void removeById(Long id) throws ResourceNotFoundException {
+        Review review = reviewRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,id)));
         reviewRepository.deleteById(id);
     }
     
