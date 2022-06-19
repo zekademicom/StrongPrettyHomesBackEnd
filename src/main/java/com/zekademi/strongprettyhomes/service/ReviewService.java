@@ -30,7 +30,7 @@ public class ReviewService {
 
         Property property = propertyRepository.findById(propertyId).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, propertyId)));
-        return reviewRepository.findAllByUserId(property);
+        return reviewRepository.findAllByPropertyId(propertyId);
     }
 
     public ReviewDTO findById(Long id) {
