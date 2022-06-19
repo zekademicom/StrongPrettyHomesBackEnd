@@ -19,7 +19,7 @@ public class PropertyService {
     private final PropertyRepository propertyRepository;
     private final AgentRepository agentRepository;
     private final PropertyDetailRepository propertyDetailRepository;
-    private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
 
 
     private final static String PROPERTY_NOT_FOUND_MSG = "property with id %d not found";
@@ -85,14 +85,36 @@ public class PropertyService {
 
     }
     
-      public Long setLike(Long id){
-        Property property = propertyRepository.findById(id).orElseThrow(() ->
+    public Long setLike(Long propertyId, Long userId) {
+
+        Property property = propertyRepository.findById(propertyId).orElseThrow(() ->
                 new ResourceNotFoundException("Property not found"));
+        if (likeRepository.existsByPropertyIdAndUserId(propertyId, userId)) {
+            Like like = likeRepository.findByPropertyIdAndUserId(propertyId, userId);
 
-        Long increaseLike = property.getLikeCount()+1;
-        property.setLikeCount(increaseLike);
-        propertyRepository.save(property);
-
+            if (like.getIsLiked() == false) {
+                like.setIsLiked(true);
+                Long decreaseLike = property.getLikeCount() - 1;
+                property.setLikeCount(decreaseLike);
+            } else {
+                like.setIsLiked(false);
+                Long increaseLike = property.getLikeCount() + 1;
+                property.setLikeCount(increaseLike);
+            }
+            propertyRepository.save(property);
+            likeRepository.save(like);
+        } else {
+            Like like = new Like();
+            like.setPropertyId(propertyId);
+            like.setUserId(userId);
+            like.setIsLiked(false);
+            Long increaseLike = property.getLikeCount() + 1;
+            property.setLikeCount(increaseLike);
+            propertyRepository.save(property);
+            propertyRepository.save(property);
+            likeRepository.save(like);
+        }
         return property.getLikeCount();
     }
+
 }
