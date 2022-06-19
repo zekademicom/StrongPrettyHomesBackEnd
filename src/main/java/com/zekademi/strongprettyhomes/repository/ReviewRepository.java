@@ -16,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public interface ReviewRepository extends JpaRepository<Review,Long> {
 
-    List<ReviewDTO> findAllByUserId(Property propertyId);
+    List<ReviewDTO> findAllByPropertyId(Long property);
 
     Optional<ReviewDTO> findByIdAndUserId(Long id, User user);
 
