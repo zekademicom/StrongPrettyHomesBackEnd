@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -97,5 +98,14 @@ public class TourRequestController {
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    } 
+
+    @GetMapping("/admin/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<TourRequestDTO>> getAllTourRequest() {
+        List<TourRequestDTO> tourrequest = tourRequestService.fetchAllTourRequest();
+
+        return new ResponseEntity<>(tourrequest, HttpStatus.OK);
+
     }
 }

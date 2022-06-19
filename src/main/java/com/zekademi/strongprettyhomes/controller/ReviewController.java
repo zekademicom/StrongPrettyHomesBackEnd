@@ -59,6 +59,22 @@ public class ReviewController {
         return new ResponseEntity<>(map, HttpStatus.CREATED);
 
     }
+    
+    @PutMapping("/update/auth")
+@PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
+public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") Long reviewId,
+                                                         @Valid @RequestBody Review review,
+                                                         //@RequestParam(value = "propertyId") Property propertyId,
+                                                         HttpServletRequest request) {
+
+    Long userId = (Long) request.getAttribute("id");
+    reviewService.updateReview(reviewId,review,userId);
+
+    Map<String, Boolean> map = new HashMap<>();
+    map.put("success", true);
+
+    return new ResponseEntity<>(map, HttpStatus.OK);
+}
 
     @GetMapping("/{id}/auth")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
@@ -67,26 +83,36 @@ public class ReviewController {
         ReviewDTO review = reviewService.findByIdAndUserId(id, userId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
-    @PatchMapping("/admin/auth")//?????
-    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
-    public ResponseEntity<Map<String, Boolean>> updateReview(@RequestParam(value = "reviewId") ReviewDTO review) {
 
-        reviewService.updateReview(review);
+    @PatchMapping("/{id}/updateStatus")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> updateStatus(@RequestParam(value = "status") String status,
+                                                             @PathVariable Long id) {
 
+        reviewService.updateReviewStatus(status,id);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
   
-   @DeleteMapping("/{id}/delete")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CUSTOMER')")
+    @DeleteMapping("/{id}/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> deleteReview(@PathVariable Long id) {
         reviewService.removeById(id);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
-    
+
+    }
+    @DeleteMapping("/{id}/auth")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> deleteUserReviewById(@PathVariable Long id, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("id");
+        reviewService.removeUserReviewById(userId,id);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
  }

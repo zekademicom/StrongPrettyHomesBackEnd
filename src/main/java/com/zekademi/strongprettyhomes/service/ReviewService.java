@@ -22,15 +22,15 @@ public class ReviewService {
     private final PropertyRepository propertyRepository;
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
-    private final static String PROPERTY_NOT_FOUND_MSG = "property with id %d not found";
-    private final static String USER_NOT_FOUND_MSG = "user with id %d not found";
+    private final static String PROPERTY_NOT_FOUND_MSG = "Property with id %d not found";
+    private final static String USER_NOT_FOUND_MSG = "User with id %d not found";
     private final static String REVIEW_NOT_FOUND_MSG = "Review with id %d not found";
 
     public List<ReviewDTO> findAllByPropertyId(Long propertyId) {
 
         Property property = propertyRepository.findById(propertyId).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(PROPERTY_NOT_FOUND_MSG, propertyId)));
-        return reviewRepository.findAllByUserId(property);
+        return reviewRepository.findAllByPropertyId(propertyId);
     }
 
     public ReviewDTO findById(Long id) {
@@ -45,29 +45,45 @@ public class ReviewService {
                 new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, id)));
     }
 
-    public void updateReview(ReviewDTO review) throws BadRequestException {
-        LocalDate activation_date = LocalDate.now();
-        String updatedReview;
-        Review reviewExist = reviewRepository.findById(review.getId()).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG, review)));
-        if (reviewExist.getUser().getBuiltIn()) {
-            reviewExist.setStatus(review.getStatus());
-        } else {
-            throw new BadRequestException("You dont have permission to update status");
-        }
-        if (!review.getReview().equals(reviewExist.getReview())) {
-            reviewExist.setActivationDate(activation_date);//create de string deger problem cikartabilir
-            updatedReview = review.getReview();
-        } else {
-            throw new BadRequestException("");
-        }
-        reviewExist.setReview(updatedReview);
-        reviewRepository.save(reviewExist);
+ public void updateReview(Long reviewId,Review review,Long userId) {
+    User user = userRepository.findById(userId).orElseThrow(() ->
+            new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+    Review reviewExist=reviewRepository.findById(reviewId)
+            .orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
+
+    reviewExist.setUser(user);
+    reviewExist.setReview(review.getReview());
+    reviewExist.setScore(review.getScore());
+    reviewExist.setActivationDate(review.getActivationDate());
+
+    reviewRepository.save(reviewExist);
+}
+      
+    public void updateReviewStatus(String status,Long reviewId) {
+
+        Review review = reviewRepository.findById(reviewId).orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,reviewId)));
+        if(status.equalsIgnoreCase("PUBLISHED"))
+        review.setStatus(ReviewStatus.PUBLISHED);
+        else if(status.equalsIgnoreCase("REJECTED"))
+            review.setStatus(ReviewStatus.REJECTED);
+        reviewRepository.save(review);
+
     }
 
-
     public void removeById(Long id) throws ResourceNotFoundException {
+        Review review = reviewRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(String.format(REVIEW_NOT_FOUND_MSG,id)));
         reviewRepository.deleteById(id);
+    }
+    
+      public void removeUserReviewById(Long userId, Long id) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+        Optional<ReviewDTO> reviews = reviewRepository.findReviews(userId,id);
+        if(reviews.isEmpty()){
+            throw new BadRequestException("You are unauthorized to delete this review!");
+        }
+        reviewRepository.deleteReviewByIdAndUser(id,user);
+
     }
 
     public void add(Review review, Property propertyId, Long userId) throws BadRequestException {

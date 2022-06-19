@@ -102,4 +102,9 @@ public class TourRequestService {
         if (!reservationExists) throw new ResourceNotFoundException("reservation does not exist");
         tourRequestRepository.deleteById(id);
     }
+
+    public List<TourRequestDTO> fetchAllTourRequest() {
+        return tourRequestRepository.findAllBy();
+    }
 }
+
