@@ -69,7 +69,6 @@ public class TourRequestService {
         else if (checkStatus)
             throw new BadRequestException("This home is already reserved! Please choose another");
 
-
         reservationExist.get().setProperty(propertyId);
         reservationExist.get().setTourRequestTime(tourRequest.getTourRequestTime());
         reservationExist.get().setChild(tourRequest.getChild());
@@ -78,7 +77,6 @@ public class TourRequestService {
 
         tourRequestRepository.save(reservationExist.get());
     }
-
 
     public boolean homeAvailability(Long propertyId, LocalDateTime tourTime) {
         List<TourRequest> checkStatus = tourRequestRepository.checkStatus(propertyId, tourTime,
