@@ -81,11 +81,21 @@ public class TourRequestController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @PutMapping("/admin/{id}/check_status")
+    @PatchMapping("/admin/{id}/check_status")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> checkStatusByAdmin(@PathVariable Long id,
                                                                    @RequestParam("status")TourRequestStatus status) {
         tourRequestService.checkRequestByAdmin(id, status);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("Request status updated successfully", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+    
+    @PatchMapping("/{id}/check_status")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<Map<String, Boolean>> checkStatusByUser(@PathVariable Long id,
+                                                                   @RequestParam("status")TourRequestStatus status) {
+        tourRequestService.checkRequestByUser(id, status);
         Map<String, Boolean> map = new HashMap<>();
         map.put("Request status updated successfully", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
