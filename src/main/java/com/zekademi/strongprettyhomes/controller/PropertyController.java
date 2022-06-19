@@ -98,7 +98,7 @@ public class PropertyController {
     }
     
     @GetMapping("/{id}/like")
-    public ResponseEntity<Long> setLike(@RequestParam Long id) {
+    public ResponseEntity<Long> setLike(@PathVariable Long id) {
         Long increaseLikes = propertyService.setLike(id);
         return new ResponseEntity<>(increaseLikes, HttpStatus.OK);
     }
