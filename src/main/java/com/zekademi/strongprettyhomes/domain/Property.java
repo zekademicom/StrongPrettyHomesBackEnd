@@ -95,16 +95,16 @@ public class Property {
     @Column(nullable = false)
     private Long visitCount;
 
-//    @NotNull(message = "Please enter the homes likes")
-//    @Column(nullable = false)
-//    private Long countLike;
+    @NotNull(message = "Please enter the homes likes")
+    @Column(nullable = false)
+    private Long likeCount;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Please enter the homes status")
     @Column(length = 30, nullable = false)
     private PropertyStatus status;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<ImageDB> image;
 
@@ -113,7 +113,6 @@ public class Property {
     @JoinColumn(name = "agent_id", nullable = false)
     private Agent agent;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "property_id"),
             inverseJoinColumns = @JoinColumn(name = "detail_id"))
