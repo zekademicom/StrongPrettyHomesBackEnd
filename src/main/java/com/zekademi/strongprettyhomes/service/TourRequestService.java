@@ -97,11 +97,16 @@ public class TourRequestService {
         }else throw new BadRequestException("User request not pending");
     }
     
-    public void checkRequestByUser(Long id, TourRequestStatus status){
+    public void checkRequestByUser(Long id, TourRequestStatus status, Long userId){
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User not found!"));
         TourRequest existRequest = tourRequestRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Tour request not found"));
+        Optional<TourRequest> userRequest = user.getTourRequests().stream().filter(t -> t.getId() == existRequest.getId()).findFirst();
 
-        if (existRequest.getStatus().equals(TourRequestStatus.PENDING) || existRequest.getStatus().equals(TourRequestStatus.APPROVED)){
+        if (userRequest.isEmpty()) throw new ResourceNotFoundException("not found request");
+
+        if (userRequest.get().getStatus().equals(TourRequestStatus.PENDING) || userRequest.get().getStatus().equals(TourRequestStatus.APPROVED)){
             existRequest.setStatus(status);
             if (status.equals(TourRequestStatus.CANCELED))tourRequestRepository.save(existRequest);
             else throw new BadRequestException("Only adjust canceled");
