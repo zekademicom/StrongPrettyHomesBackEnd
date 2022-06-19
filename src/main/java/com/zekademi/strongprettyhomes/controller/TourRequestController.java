@@ -118,4 +118,12 @@ public class TourRequestController {
         return new ResponseEntity<>(tourrequest, HttpStatus.OK);
 
     }
+    
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<List<TourRequestDTO>> getAllUserTourRequest(HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("id");
+        List<TourRequestDTO> tourRequest = tourRequestService.fetchAllTourRequestByUser(userId);
+        return new ResponseEntity<>(tourRequest, HttpStatus.OK);
+    }
 }
