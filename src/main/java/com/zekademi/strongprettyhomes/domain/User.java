@@ -82,10 +82,6 @@ public class User  {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Review> reviews= new HashSet<>();
 
-//    @Column
-//    private Boolean isLiked;
-
-
     public User( String firstName, String lastName, String password, String phoneNumber, String email,
                 String address, String zipCode) {
         this.firstName = firstName;
