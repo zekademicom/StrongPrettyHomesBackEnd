@@ -92,31 +92,49 @@ public class TourRequestService {
         return checkStatus.size() > 0;
     }
 
-    public void checkRequestByAdmin(Long id, TourRequestStatus status){
+    public void checkRequestByAdmin(Long id, TourRequestStatus status) {
         TourRequest existRequest = tourRequestRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Tour request not found"));
 
-        if (existRequest.getStatus().equals(TourRequestStatus.PENDING)){
+        LocalDateTime today = LocalDateTime.now();
+        if (existRequest.getStatus().equals(TourRequestStatus.PENDING) &&
+                today.plusHours(1).isBefore(existRequest.getTourRequestTime()) &&
+                (status.equals(TourRequestStatus.APPROVED) ||
+                        status.equals(TourRequestStatus.REJECTED))) {
+
             existRequest.setStatus(status);
-            if (status.equals(TourRequestStatus.APPROVED))tourRequestRepository.save(existRequest);
-            else throw new BadRequestException("Only adjust approved");
-        }else throw new BadRequestException("User request not pending");
+
+        } else if (existRequest.getStatus().equals(TourRequestStatus.PENDING) &&
+                today.plusHours(1).isAfter(existRequest.getTourRequestTime())) {
+
+            existRequest.setStatus(TourRequestStatus.APPROVED);
+
+        } else {
+            throw new BadRequestException("Check cannot be made");
+        }
+        tourRequestRepository.save(existRequest);
     }
-    
-    public void checkRequestByUser(Long id, TourRequestStatus status, Long userId){
+
+    public void checkRequestByUser(Long id, TourRequestStatus status, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new ResourceNotFoundException("User not found!"));
         TourRequest existRequest = tourRequestRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Tour request not found"));
-        Optional<TourRequest> userRequest = user.getTourRequests().stream().filter(t -> t.getId() == existRequest.getId()).findFirst();
+        Optional<TourRequest> userRequest = user.getTourRequests().stream().filter(t -> t.getId() ==
+                existRequest.getId()).findFirst();
 
         if (userRequest.isEmpty()) throw new ResourceNotFoundException("not found request");
 
-        if (userRequest.get().getStatus().equals(TourRequestStatus.PENDING) || userRequest.get().getStatus().equals(TourRequestStatus.APPROVED)){
+        LocalDateTime today = LocalDateTime.now();
+        if ((userRequest.get().getStatus().equals(TourRequestStatus.PENDING) ||
+                userRequest.get().getStatus().equals(TourRequestStatus.APPROVED)) &&
+                today.plusHours(1).isBefore(existRequest.getTourRequestTime()) &&
+                status.equals(TourRequestStatus.CANCELED)) {
             existRequest.setStatus(status);
-            if (status.equals(TourRequestStatus.CANCELED))tourRequestRepository.save(existRequest);
-            else throw new BadRequestException("Only adjust canceled");
-        }else throw new BadRequestException("User request not pending or approved");
+            tourRequestRepository.save(existRequest);
+        } else {
+            throw new BadRequestException("Tour request cannot cancel");
+        }
     }
     
     public void removeById(Long id) throws ResourceNotFoundException {
