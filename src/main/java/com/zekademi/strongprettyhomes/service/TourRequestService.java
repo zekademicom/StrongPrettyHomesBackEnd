@@ -47,6 +47,10 @@ public class TourRequestService {
 
         if (!checkStatus) tourRequest.setStatus(TourRequestStatus.PENDING);
         else throw new BadRequestException("Property is already reserved! Please choose another Time");
+        
+        LocalDateTime today = LocalDateTime.now();
+        if (today.compareTo(tourRequest.getTourRequestTime()) > 0)
+            throw new BadRequestException("Invalid time and date !!!");
 
         tourRequest.setProperty(propertyId);
         tourRequest.setUser(user);
@@ -68,6 +72,10 @@ public class TourRequestService {
             System.out.println();
         else if (checkStatus)
             throw new BadRequestException("This home is already reserved! Please choose another");
+        
+        LocalDateTime today = LocalDateTime.now();
+        if (today.compareTo(tourRequest.getTourRequestTime()) > 0)
+            throw new BadRequestException("Invalid time and date !!!");
 
         reservationExist.get().setProperty(propertyId);
         reservationExist.get().setTourRequestTime(tourRequest.getTourRequestTime());
