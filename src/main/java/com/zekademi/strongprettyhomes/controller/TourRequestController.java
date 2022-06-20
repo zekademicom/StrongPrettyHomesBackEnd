@@ -94,8 +94,12 @@ public class TourRequestController {
     @PatchMapping("/{id}/check_status")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<Map<String, Boolean>> checkStatusByUser(@PathVariable Long id,
-                                                                   @RequestParam("status")TourRequestStatus status) {
-        tourRequestService.checkRequestByUser(id, status);
+                                                                   @RequestParam("status")TourRequestStatus status,
+                                                                 HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("id");
+        tourRequestService.addTourRequest(tourRequest, userId, propertyId);
+        
+        tourRequestService.checkRequestByUser(id, status, userId);
         Map<String, Boolean> map = new HashMap<>();
         map.put("Request status updated successfully", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
