@@ -98,9 +98,12 @@ public class PropertyController {
     }
     
     @GetMapping("/{id}/like")
-    public ResponseEntity<Long> setLike(@PathVariable Long id) {
-        Long increaseLikes = propertyService.setLike(id);
-        return new ResponseEntity<>(increaseLikes, HttpStatus.OK);
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<Long> setLike(@PathVariable Long id,
+                                        HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("id");
+        Long setLikes = propertyService.setLike(id, userId);
+        return new ResponseEntity<>(setLikes, HttpStatus.OK);
     }
 
 }
