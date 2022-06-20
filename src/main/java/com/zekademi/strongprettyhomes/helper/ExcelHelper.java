@@ -175,7 +175,7 @@ public class ExcelHelper {
         }
     }
 
-    public static ByteArrayInputStream tourrequestsExcel(List<TourRequest> tourrequests)  {
+    public static ByteArrayInputStream tourRequestsExcel(List<TourRequest> tourrequests)  {
         try (Workbook workbook = new XSSFWorkbook();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Sheet sheet = workbook.createSheet(SHEET_TOURREQUEST);
