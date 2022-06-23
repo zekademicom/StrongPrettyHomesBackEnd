@@ -93,11 +93,11 @@ public class Property {
 
     @NotNull(message = "Please enter the homes visitCount")
     @Column(nullable = false)
-    private Long visitCount;
+    private Long visitCount = 0L;
 
     @NotNull(message = "Please enter the homes likes")
     @Column(nullable = false)
-    private Long likeCount;
+    private Long likeCount = 0L;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Please enter the homes status")
