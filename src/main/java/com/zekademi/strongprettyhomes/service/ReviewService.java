@@ -3,6 +3,7 @@ package com.zekademi.strongprettyhomes.service;
 import com.zekademi.strongprettyhomes.domain.Property;
 import com.zekademi.strongprettyhomes.domain.Review;
 import com.zekademi.strongprettyhomes.domain.User;
+import com.zekademi.strongprettyhomes.domain.enumeration.ReviewStatus;
 import com.zekademi.strongprettyhomes.dto.ReviewDTO;
 import com.zekademi.strongprettyhomes.exception.BadRequestException;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
