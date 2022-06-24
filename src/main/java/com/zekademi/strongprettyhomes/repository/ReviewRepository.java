@@ -6,6 +6,7 @@ import com.zekademi.strongprettyhomes.domain.User;
 import com.zekademi.strongprettyhomes.dto.ReviewDTO;
 import com.zekademi.strongprettyhomes.exception.ResourceNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
