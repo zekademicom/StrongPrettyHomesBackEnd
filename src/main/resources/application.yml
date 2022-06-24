@@ -8,7 +8,7 @@ server:
     context-path: /strongprettyhomes/api
 spring:
   datasource:
-    password: 1234
+    password:
     url: jdbc:postgresql://localhost:5432/strongprettyhomes
     username: postgres
     driver-class-name: org.postgresql.Driver
