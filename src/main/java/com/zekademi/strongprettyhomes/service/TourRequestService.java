@@ -148,7 +148,7 @@ public class TourRequestService {
                new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
         Optional<TourRequestDTO> tours = tourRequestRepository.findTour(userId,id);
           if(tours.isEmpty()){
-            throw new BadRequestException("You are unauthorized to delete this review!");
+            throw new BadRequestException("You are unauthorized to delete this tour request!");
          }
         tourRequestRepository.deleteTourRequestByIdAndUser(id,user);
 
