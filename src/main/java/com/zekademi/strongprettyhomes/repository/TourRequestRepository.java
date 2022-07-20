@@ -43,7 +43,7 @@ public interface TourRequestRepository extends JpaRepository<TourRequest, Long> 
     void deleteTourRequestByIdAndUser(Long id,User userId);
     
     @Query("SELECT new com.zekademi.strongprettyhomes.dto.TourRequestDTO(t) FROM TourRequest t WHERE t.user.id = ?1 and t.id=?2")
-    Optional<TourRequestDTO> findTours(Long userId, Long id);
+    Optional<TourRequestDTO> findTour(Long userId, Long id);
     
     
 }
