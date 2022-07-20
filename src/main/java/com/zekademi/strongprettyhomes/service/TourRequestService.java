@@ -150,7 +150,7 @@ public class TourRequestService {
     //      if(reviews.isEmpty()){
     //        throw new BadRequestException("You are unauthorized to delete this review!");
     //     }
-        tourRequestRepository.deleteUserTourRequestById(id,user);
+        tourRequestRepository.deleteTourRequestByIdAndUser(id,user);
 
     }
 
