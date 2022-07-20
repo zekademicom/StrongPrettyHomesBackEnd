@@ -111,6 +111,15 @@ public class TourRequestController {
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     } 
+        @DeleteMapping("/{id}/auth")
+    @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
+    public ResponseEntity<Map<String, Boolean>> deleteUserTourRequestById(@PathVariable Long id, HttpServletRequest request) {
+        Long userId = (Long) request.getAttribute("id");
+        tourRequestService.removeUserTourRequestById(userId,id);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 
     @GetMapping("/admin/all")
     @PreAuthorize("hasRole('ADMIN')")
