@@ -142,6 +142,17 @@ public class TourRequestService {
         if (!reservationExists) throw new ResourceNotFoundException("reservation does not exist");
         tourRequestRepository.deleteById(id);
     }
+    
+     public void removeUserTourRequestById(Long userId, Long id) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+               new ResourceNotFoundException(String.format(USER_NOT_FOUND_MSG, userId)));
+        Optional<TourRequestDTO> tours = tourRequestRepository.findTour(userId,id);
+    //      if(reviews.isEmpty()){
+    //        throw new BadRequestException("You are unauthorized to delete this review!");
+    //     }
+        tourRequestRepository.deleteUserTourRequestById(id,user);
+
+    }
 
     public List<TourRequestDTO> fetchAllTourRequest() {
         return tourRequestRepository.findAllBy();
