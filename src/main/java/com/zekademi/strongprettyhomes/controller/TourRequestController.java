@@ -111,7 +111,8 @@ public class TourRequestController {
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     } 
-        @DeleteMapping("/{id}/auth")
+    
+    @DeleteMapping("/{id}/auth")
     @PreAuthorize("hasRole('CUSTOMER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Boolean>> deleteUserTourRequestById(@PathVariable Long id, HttpServletRequest request) {
         Long userId = (Long) request.getAttribute("id");
@@ -137,4 +138,5 @@ public class TourRequestController {
         List<TourRequestDTO> tourRequest = tourRequestService.fetchAllTourRequestByUser(userId);
         return new ResponseEntity<>(tourRequest, HttpStatus.OK);
     }
+    
 }
